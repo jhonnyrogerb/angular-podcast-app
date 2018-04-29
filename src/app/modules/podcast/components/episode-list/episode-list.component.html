@@ -1,0 +1,24 @@
+<ul class="episode__list">
+  <li *ngFor="let episode of episodes" class="episode">
+    <a class="episode__link" (click)="setEpisode(episode)">
+      <div class="episode__artwork">
+        <img class="episode__img" src="{{episode.cover}}" alt="{{episode.title}} - artwork" />
+      </div>
+      <div class="episode__info">
+        <div class="episode__date">{{ episode.releaseDate | dateFromNow }}</div>
+        <div class="episode__title">{{ episode.title }}</div>
+        <div class="episode__duration">{{ episode.duration }}</div>
+        <div class="episode__size">
+          <a class="episode__play" href="javascript:void(0)" (click)=setEpisode(episode)>
+            <i class="fa fa-play"></i> Play
+          </a>
+          <a class="episode__download" (click)="stopPropagation($event)" href="{{episode.src}}" download>
+            <i class="fa fa-download"></i> Download
+          </a>
+          {{ episode.size | prettySize }}
+        </div>
+
+      </div>
+    </a>
+  </li>
+</ul>

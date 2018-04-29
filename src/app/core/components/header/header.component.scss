@@ -1,0 +1,98 @@
+@import "~bootstrap/scss/bootstrap-grid.scss";
+@import "variables";
+
+:host{
+    width: 100%;
+    height: 70px;
+    position: relative;
+}
+
+.nav{
+    display: flex;
+    list-style: none;
+    flex-flow: row;
+    flex-direction: center;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    background: #000;
+}
+
+.nav__item{
+    height: calc(100% - 3px);
+    display: block;
+    overflow: hidden;
+
+    &.active, 
+    &.active .nav__link{
+        border-bottom: 3px solid $main-yellow;
+        color: $main-yellow;
+    }
+}
+
+.nav__link{
+    height: 100%;
+    text-decoration: none;
+    font-size: 1.7rem;
+    display: block;
+    color: #ccc;
+
+    @include media-breakpoint-up(md) {
+        padding: 20px 60px;
+    }
+
+    @include media-breakpoint-only(md) { 
+        padding: 20px 40px;
+    }
+
+    @include media-breakpoint-only(sm) { 
+        padding: 20px 30px;
+    }
+    
+    @include media-breakpoint-down(xs) { 
+        padding: 20px 25px;
+    }
+}
+
+.nav-back{
+    display: flex;
+    list-style: none;
+    flex-flow: row;
+    flex-direction: left;
+    justify-content: left;
+    align-items: left;
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    background: #000;
+}
+
+.nav-back__item{
+    height: calc(100% - 3px);
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.nav-back__link{
+    height: 100%;
+    text-decoration: none;
+    font-size: 1.7rem;
+    display: block;
+    color: #ccc;
+    cursor: pointer;
+    padding: 20px 20px 20px 30px;
+}
+
+.nav-back__title{
+    color: #ccc;
+    font-size: 1.5rem;
+    padding: 5px 10px 0 5px;
+    margin-right: 50px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+}

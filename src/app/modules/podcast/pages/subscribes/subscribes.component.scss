@@ -1,0 +1,16 @@
+@import 'variables';
+@import "~bootstrap/scss/bootstrap-grid.scss";
+
+
+app-podcast-list /deep/ .podcast__list {
+    flex-direction: row !important;
+    flex-flow: row !important;
+    overflow-x: auto !important;
+    scroll-behavior: smooth;  
+    justify-content: left !important;
+}
+
+.subscribe{
+    background: linear-gradient(#010101, #050505) ;
+    min-height: 100vh;
+}

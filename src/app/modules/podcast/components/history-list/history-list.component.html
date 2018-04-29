@@ -1,0 +1,29 @@
+<div class="podcast__episodes" *ngIf="episodes">
+  <ul class="episode__list">
+    <li *ngFor="let episode of episodes" class="episode">
+      <a class="episode__link" (click)="setEpisode(episode)">
+        <div class="episode__artwork">
+          <img class="episode__img" src="{{episode.cover}}" alt="{{episode.podcastTitle}} - artwork" />
+        </div>
+        <div class="episode__info">
+          <div class="episode__date">Played {{ episode.lastPlay | dateFromNow }}</div>
+          <div class="episode__title">{{ episode.title }}</div>
+          <div class="episode__author"><a [routerLink]="['/podcast', 'feed', episode.podcastId]">{{ episode.podcastTitle }}</a></div>
+          <div class="episode__progress">
+            <progress class="episode__bar" value="{{episode.progressbar}}" max="1"></progress>
+            <div class="episode__duration">{{ episode.currentTimeString }} / {{ episode.durationString }}</div>
+          </div>
+          <div class="episode__size">
+            <a class="episode__play" (click)=setEpisode(episode)>
+              <i class="fa fa-play"></i> Play
+            </a>
+            <a class="episode__download" (click)="stopPropagation($event)" href="{{episode.src}}" download>
+              <i class="fa fa-download"></i> Download
+            </a>
+            {{ episode.sizeBytes | prettySize }}
+          </div>
+        </div>
+      </a>
+    </li>
+  </ul>
+</div>

@@ -1,0 +1,8 @@
+@import "~bootstrap/scss/bootstrap-grid.scss";
+@import "variables";
+
+.history{
+    min-height: 100vh;
+    background: $default-backgrount;
+    overflow: hidden;
+}

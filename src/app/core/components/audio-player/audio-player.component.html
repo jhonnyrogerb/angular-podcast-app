@@ -1,0 +1,18 @@
+<div class="audio">
+  <div class="audio__btn" [ngClass]="{pause: !audio.paused}" (click)="pauseAudio()"></div>
+
+  <div class="audio__metadata">
+    <div class="audio__info">
+      <div class="audio__title">{{ episode.title }}</div>
+      <div class="audio__author"><a [routerLink]="['/podcast', 'feed', episode.podcastId]">{{ episode.podcastTitle }}</a></div>
+    </div>
+
+    <div class="audio__progress">
+      <small class="audio__time">{{ episode.currentTimeString }}</small>
+      <progress class="audio__bar" (click)="seekAudio($event)" value="{{episode.progressbar}}" max="1"></progress>
+      <small class="progress__time">{{ episode.durationString }}</small>
+    </div>
+  </div>
+
+  <img class="audio__cover" src="{{episode.cover || 'assets/img/cover-placeholder.jpg'}}" alt="Cover - Podcast {{episode.author}} - Episode {{episode.title}}">
+</div>

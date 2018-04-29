@@ -1,0 +1,32 @@
+<ul class="nav" *ngIf="isHome">
+  <li class="nav__item" routerLinkActive="active">
+    <a class="nav__link" routerLink="/podcast/home">
+      <i class="nav__icon fa fa-home" aria-hidden="true"></i>
+    </a>
+  </li>
+  <li class="nav__item" routerLinkActive="active">
+    <a class="nav__link" routerLink="/podcast/subscribes">
+      <i class="nav__icon fa fa-heart" aria-hidden="true"></i>
+    </a>
+  </li>
+  <li class="nav__item" routerLinkActive="active">
+    <a class="nav__link" routerLink="/podcast/search">
+      <i class="nav__icon fa fa-search" aria-hidden="true"></i>
+    </a>
+  </li>
+  <li class="nav__item" routerLinkActive="active">
+    <a class="nav__link" routerLink="/podcast/history">
+      <i class="nav__icon fa fa-history" aria-hidden="true"></i>
+    </a>
+  </li>
+</ul>
+
+<ul class="nav-back" *ngIf="!isHome">
+  <li class="nav-back__item" routerLinkActive="active">
+    <a class="nav-back__link" (click)="goBack()">
+      <i class="nav-back__icon fa fa-arrow-left" aria-hidden="true"></i>
+    </a>
+    <li class="nav-back__item" routerLinkActive="active">
+      <h1 class="nav-back__title">{{ headerService.headerTitle }}</h1>
+    </li>
+</ul>

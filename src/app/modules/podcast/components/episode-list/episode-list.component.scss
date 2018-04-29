@@ -1,0 +1,94 @@
+
+@import "~bootstrap/scss/bootstrap-grid.scss";
+@import "variables";
+
+.podcast__episodes{
+    z-index: 10;
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.episode {
+    display: block;
+    overflow: hidden;
+}
+
+.episode__list{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+
+.episode__link{
+    display: flex;
+    flex-direction: row;
+    justify-content: left;  
+    margin: 40px 20px;
+    position: relative;
+}
+
+.episode__artwork{
+    flex-basis: 140px;
+    width: 140px;
+    height: 140px;
+    min-width: 140px;
+    margin-right: 20px;
+    border: 2px solid $gray-dark;
+
+    @include media-breakpoint-down(sm) {
+        flex-basis: 120px;
+        width: 120px;
+        height: 120px;
+        min-width: 120px;
+    }
+}
+
+.episode__img{
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.episode__info{
+    color: $gray-white
+}
+
+.episode__title{
+    font-size: 1.1rem;
+    font-weight: bolder;
+}
+
+.episode__size{
+    margin: 10px 0;
+}
+
+.episode__download{
+    text-decoration: none;
+    color: $gray-light;
+    font-size: 1rem;
+    font-weight: bold;
+    display: inline-block;
+    z-index: 1900;
+}
+
+.episode__link{
+    text-decoration: none;
+    color: $gray-light;
+    cursor: pointer;
+}
+
+.episode__play{
+    text-decoration: none;
+    color: $gray-light;
+    font-size: 1.2rem;
+    font-weight: bold;
+    display: block;
+    margin: 5px 0;
+
+    @include media-breakpoint-down(sm) {
+        display: none;
+    }
+}

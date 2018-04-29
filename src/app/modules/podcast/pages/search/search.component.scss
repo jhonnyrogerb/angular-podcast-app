@@ -1,0 +1,37 @@
+@import "variables";
+@import "~bootstrap/scss/bootstrap-grid.scss";
+
+.search__result{
+    margin-top: 120px;
+}
+
+.search__container{
+    min-height: 100vh;
+    background: $default-backgrount;
+    overflow: hidden;
+}
+
+.search{
+    max-width: 100%;
+    padding: 20px;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 69px;
+    z-index: 9000;
+    background: $black;
+
+    
+}
+
+.search__input{
+    display: block;
+    padding: 20px 10px;
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+
+    @include media-breakpoint-up(md) {
+      width: 50%;
+    }
+}

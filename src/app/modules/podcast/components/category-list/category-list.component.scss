@@ -1,0 +1,40 @@
+@import "~bootstrap/scss/bootstrap-grid.scss";
+@import 'variables';
+
+.category__list{
+    list-style: none;
+    display: flex;
+    flex-flow: row wrap;
+    flex-direction: row;
+    margin: 0;
+    padding: 0 10px 20px;
+    justify-content: center;
+}
+
+.category{
+    display: block;
+    margin: 5px;
+    height: 80px;
+    border-radius: 5px;
+    opacity: .8;
+    width: calc(50% - 10px);
+
+    @include media-breakpoint-up(md) { 
+        flex-basis: calc(25% - 10px);
+    }
+}
+
+.category__link{
+    text-decoration: none;
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.category__title{
+    text-decoration: none;
+    color: $white;
+    font-weight: bolder;
+    padding: 10px;
+    font-size: 1rem;
+}

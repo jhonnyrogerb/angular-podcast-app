@@ -1,0 +1,21 @@
+<div class="podcast">
+  <div *ngIf="podcast">
+    <app-feed-header [podcast]="podcast"></app-feed-header>
+
+    <div class="podcast__episodes">
+      <div class="podcast__subscribe">
+        <a class="subscribe__icon" *ngIf="!isSubscribed" (click)="subscribeFeed(podcast)" title="Subscribe to a Feed">
+          <i class="fa fa-heart-o"></i>
+        </a>
+        <a class="subscribe__icon" *ngIf="isSubscribed" (click)="unsubscribeFeed(podcast)" title="Unsubscribe to a Feed">
+          <i class="fa fa-heart"></i>
+        </a>
+        <a class="subscribe__icon" (click)="updateFeed()" title="Update Feed">
+          <i [ngClass]="{'fa-spin': isRefreshing}" class="fa fa-refresh"></i>
+        </a>
+      </div>
+
+      <app-episode-list [episodes]="podcast.episodes"></app-episode-list>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,42 @@
+@import 'variables';
+
+body{
+    font-family: sans-serif, Arial, Helvetica;
+}
+
+html {
+    box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+
+*::-webkit-scrollbar-track {
+	background-color: #F5F5F5;
+}
+
+*::-webkit-scrollbar {
+	height: 8px;
+    background-color: #F5F5F5;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: $gray-dark;
+}
+
+a, button{
+    cursor: pointer;
+}
+
+*{
+    appearance: none;
+}
+
+:focus, :active {
+    outline: none;
+    appearance: none;
+    box-shadow: none;
+}

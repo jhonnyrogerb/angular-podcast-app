@@ -1,0 +1,70 @@
+@import "~bootstrap/scss/bootstrap-grid.scss";
+@import "variables";
+
+.podcast__artwork{
+    width: 100%;
+    display: flex;
+    background: $default-backgrount;
+    flex-direction: row;
+
+    @include media-breakpoint-down(sm) {
+        flex-direction: column;
+    }
+}
+
+.podcast__info{
+    color: $gray-white;
+    margin: 20px 40px;
+
+    @include media-breakpoint-down(sm) {
+        margin-top: 0;
+    }
+}
+
+
+.podcast__title{
+    font-weight: bolder;
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+
+.podcast__author{
+    font-size: .9rem; 
+    text-align: center;
+}
+
+
+.podcast__description{
+    margin: 20px 40px 0;
+
+    @include media-breakpoint-down(xs){
+        margin:  20px 0
+    }
+
+}
+
+.podcast__img{
+    display: block;
+
+    @include media-breakpoint-up(md) {
+        width: 300px;
+        min-width: 300px;
+        height: 300px;
+        margin: 20px;
+    }
+
+    @include media-breakpoint-only(md){
+        width: 250px;
+        min-width: 250px;
+        height: 250px;
+        margin: 20px;
+    }
+
+    @include media-breakpoint-down(sm) {
+        width: 200px;
+        min-width: 200px;
+        height: 200px;
+        margin: 20px auto;
+    }
+}

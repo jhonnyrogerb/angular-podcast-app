@@ -1,0 +1,13 @@
+.app__content{
+    display: block;
+    flex-flow: column;
+    overflow: hidden;
+    position: relative;
+    padding: 70px 0 80px;
+}
+
+.app__header{
+    position: fixed;
+    top: 0;
+    z-index: 1900;
+}

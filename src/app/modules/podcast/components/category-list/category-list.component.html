@@ -1,0 +1,7 @@
+<ul class="category__list">
+  <li class="category" *ngFor="let category of categories" [ngStyle]="{background: gradient(category.name + ramdomNumber())}">
+    <a class="category__link" [routerLink]="['/podcast', 'category', category.id, category.name]">
+      <div class="category__title">{{ category.name }}</div>
+    </a>
+  </li>
+</ul>

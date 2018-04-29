@@ -1,0 +1,12 @@
+<div *ngIf="podcast">
+  <div class="podcast__artwork" [ngStyle]="{'background': coverColor}">
+    <img class="podcast__img" crossOrigin="anonymous" (load)="getColor($event)" src="https://cors-anywhere.herokuapp.com/{{podcast.cover}}"
+      alt="{{podcast.title}} - artwork" />
+
+    <div class="podcast__info">
+      <div class="podcast__title">{{ podcast.title }}</div>
+      <div class="podcast__author">By {{ podcast.author }}</div>
+      <div class="podcast__description">{{ podcast.description }}</div>
+    </div>
+  </div>
+</div>

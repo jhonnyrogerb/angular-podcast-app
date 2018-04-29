@@ -1,0 +1,18 @@
+<ul class="podcast__list">
+  <li class="podcast" *ngFor="let podcast of podcasts" [ngStyle]="{opacity: podcast.loaded}">
+    <a class="podcast__link" [routerLink]="['/podcast', 'feed', podcast.id]">
+      <div class="podcast__artwork">
+        <img 
+          class="podcast__img" 
+          src="{{podcast.cover}}" 
+          alt="{{podcast.name}} - artwork"
+          (load)="topPodcastLoaded ? podcast.loaded = 1 : podcast.loaded = 0" 
+        />
+      </div>
+      <div class="podcast__info">
+        <div class="podcast__title">{{ podcast.title }}</div>
+        <div class="podcast__author">{{ podcast.author }}</div>
+      </div>
+    </a>
+  </li>
+</ul>

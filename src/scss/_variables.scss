@@ -1,0 +1,20 @@
+$main-yellow: #FEFF00;
+
+$black: #000;
+$white: #fff;
+
+$default-backgrount: linear-gradient(#010101, #050505);
+
+$gray-darker: lighten($black, 13.5%);
+$gray-dark: lighten($black, 20%);
+$gray: lighten($black, 33.5%);
+$gray-light: lighten($black, 46.7%);
+$gray-lighter: lighten($black, 80%); 
+$gray-white: lighten($black, 93.5%); 
+
+$yellow-darker: lighten($main-yellow, 10%);
+$yellow-dark: lighten($main-yellow, 20%);
+$yellow: lighten($main-yellow, 33.5%);
+$yellow-light: lighten($main-yellow, 46.7%);
+$yellow-lighter: lighten($main-yellow, 80%); 
+$yellow-white: lighten($main-yellow, 93.5%); 

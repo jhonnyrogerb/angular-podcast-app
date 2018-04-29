@@ -1,0 +1,34 @@
+@import "~bootstrap/scss/bootstrap-grid.scss";
+@import "variables";
+
+.podcast{
+    min-height: 100vh;
+    background: $default-backgrount
+}
+
+.podcast__subscribe{
+    display: flex;
+    flex-direction: row;
+    align-content: left;
+    justify-content: left;  
+    margin: 20px;
+    flex-grow: 1;
+    flex-basis: 100%;
+    width: 100%;  
+}
+
+.subscribe__icon{
+    font-size: 2.2rem;
+    color: $gray-white;
+    display: block;
+    padding: 10px 15px;
+    font-weight: bolder;
+}
+
+.podcast__episodes{
+    z-index: 10;
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+}
