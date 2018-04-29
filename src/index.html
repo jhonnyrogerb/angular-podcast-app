@@ -1,14 +1,41 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
+  <meta name="description" content="A podcast app made with Angular 5, Pouchdb, Html5 Web Audio API and PWA Features.">
+  <meta name="Jhonny Roger Silva" content="end3r">
+  <meta name="theme-color" content="#000">
+  <meta property="og:image" content="assets/icons/icon-512x512.png">
+  <link rel="manifest" href="manifest.json">
   <title>Angular PWA Podcast App</title>
   <base href="/">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
 </head>
+
 <body>
-  <app-root></app-root>
+  <app-root>
+    <link rel="stylesheet" href="assets/css/spinner.css">
+    <div class="loader">
+      <div class="part">
+        <div class="part">
+          <div class="part">
+            <div class="part">
+              <div class="part"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </app-root>
+
+  <noscript>
+    <h1>
+      Sorry, but app is not available without javascript
+    </h1>
+  </noscript>
 </body>
+
 </html>
