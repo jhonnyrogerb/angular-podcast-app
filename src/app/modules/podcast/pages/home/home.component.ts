@@ -2,6 +2,7 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { ItunesCategory } from '@shared/models/itunes-category.models';
 import { ItunesPodcast } from '@shared/models/itunes-podcast.models';
 import { PodcastService } from '@core/http/podcast.service';
+import { NgProgress } from 'ngx-progressbar';
 
 @Component({
   selector: 'app-home',
@@ -14,26 +15,25 @@ export class HomeComponent implements OnInit, AfterViewInit {
   podcasts: ItunesPodcast[];
   topPodcastLoaded = false;
 
-  constructor(private podcasService: PodcastService) {
-    this.podcasts = new Array(20).fill({
-      id: '',
-      cover: '/assets/img/top-podcast-placeholder.png',
-      title: '',
-      author: ''
-    });
+  constructor(
+    private podcasService: PodcastService,
+    private ngProgress: NgProgress
+  ) {
+    this.podcasts = new Array(20).fill(new ItunesPodcast());
   }
 
-  ngOnInit() {
-    this.podcasService
-      .getItunesCategories()
-      .subscribe(response => this.categories = response);
+  async ngOnInit() {
+    try {
+      this.ngProgress.start()
 
-    this.podcasService
-      .getItunesTopPodcast()
-      .subscribe(response => {
-        this.podcasts = response;
-        this.topPodcastLoaded = true;
-      });
+      this.categories = await this.podcasService.getItunesCategories()
+      this.podcasts = await this.podcasService.getItunesTopPodcast()
+      this.topPodcastLoaded = true;
+    } catch (e) {
+      console.log("Fail to load podcasts", e)
+    } finally {
+      this.ngProgress.done();
+    }
   }
 
   ngAfterViewInit() {

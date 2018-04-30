@@ -23,10 +23,11 @@ export class AudioPlayerComponent implements OnInit, OnDestroy {
     this.episode = await this.getLastAudio();
     this.loadAudio(false);
 
-    this.audioService.changeAudioEvent.subscribe((episode: ItunesEpisode) => {
-      this.episode = episode;
-      this.loadAudio();
-    });
+    this.audioService.changeAudioEvent
+      .subscribe((episode: ItunesEpisode) => {
+        this.episode = episode;
+        this.loadAudio();
+      });
   }
 
 

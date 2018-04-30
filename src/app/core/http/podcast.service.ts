@@ -19,12 +19,16 @@ import 'rxjs/add/operator/publishReplay';
 import 'rxjs/add/operator/publishReplay';
 import 'rxjs/add/operator/delay';
 import 'rxjs/add/observable/throw';
+import 'rxjs/add/observable/of';
+
 import { ToHttpsPipe } from '@shared/pipes/to-https.pipe';
+import { HeaderService } from '@core/services/header.service';
 
 
 @Injectable()
 export class PodcastService {
-  private itunesTopPodcastObservable: Observable<ItunesPodcast[]>;
+  private itunesTopPodcastObservable: Promise<ItunesPodcast[]>;
+  private itunesCategoriesObservable: Promise<ItunesCategory[]>;
 
   private corsProxy: string;
   private countryCode = 'US';
@@ -34,19 +38,21 @@ export class PodcastService {
     this.corsProxy = environment.corsProxy;
   }
 
-  getLocation() {
-    return new Promise((resolve, reject) => {
-      this.http.get<any>('https://ipapi.co/json/?callback=')
+  async getLocation() {
+    try {
+      const { country } = await this.http
+        .get<any>('https://ipapi.co/json/?callback=')
         .catch(this.handleError)
-        .finally(() => resolve(true))
-        .subscribe(({ country }) => {
-          if(country) this.countryCode = country;
-          resolve(true);
-        });
-    });
+        .toPromise();
+
+      if (country) this.countryCode = country;
+      return true;
+    } catch (e) {
+      return true;
+    }
   }
 
-  getItunesTopPodcast(limit: number = 20): Observable<ItunesPodcast[]> {
+  getItunesTopPodcast(limit: number = 20): Promise<ItunesPodcast[]> {
     if (this.itunesTopPodcastObservable) return this.itunesTopPodcastObservable;
 
     this.itunesTopPodcastObservable = this.http
@@ -62,22 +68,30 @@ export class PodcastService {
             lastUpdate: podcast.releaseDate
           });
       })
-      .publishReplay(1)
+      .publishReplay()
       .refCount()
-      .catch(this.handleError);
+      .catch(this.handleError)
+      .toPromise();
 
     return this.itunesTopPodcastObservable;
   }
 
 
-  getItunesCategories(): Observable<ItunesCategory[]> {
-    return this.http
+  getItunesCategories(): Promise<ItunesCategory[]> {
+    if (this.itunesCategoriesObservable) return this.itunesCategoriesObservable;
+
+    this.itunesCategoriesObservable = this.http
       .get<any>(`https://itunes.apple.com/WebObjects/MZStoreServices.woa/ws/genres?id=26`)
       .map((response) => {
         const subGenres = response['26'].subgenres;
         return Object.keys(subGenres).map(key => <ItunesCategory>subGenres[key]);
       })
-      .catch(this.handleError);
+      .publishReplay()
+      .refCount()
+      .catch(this.handleError)
+      .toPromise();
+
+    return this.itunesCategoriesObservable;
   }
 
 
@@ -104,7 +118,7 @@ export class PodcastService {
       .catch(this.handleError);
   }
 
-  searchPodcastByCategory(categoryId: string): Observable<ItunesPodcast[]> {
+  searchPodcastByCategory(categoryId: string): Promise<ItunesPodcast[]> {
     return this.http
       // tslint:disable-next-line
       .get<any>(`https://itunes.apple.com/search?media=podcast&country=${this.countryCode}&term=podcast&genreId=${categoryId}&limit=100&callback=`)
@@ -119,10 +133,11 @@ export class PodcastService {
             lastUpdate: podcast.releaseDate
           });
       })
-      .catch(this.handleError);
+      .catch(this.handleError)
+      .toPromise();
   }
 
-  getFeed(podcast: ItunesPodcast): Observable<ItunesPodcast> {
+  getFeed(podcast: ItunesPodcast): Promise<ItunesPodcast> {
     return this.http
       .get(`${this.corsProxy}${podcast.feedUrl}?format=xml`, { responseType: 'text' })
       .map(async (response) => {
@@ -156,10 +171,11 @@ export class PodcastService {
           episodes
         };
       })
-      .catch(this.handleError);
+      .catch(this.handleError)
+      .toPromise();
   }
 
-  getPodcastById(id: string): Observable<ItunesPodcast> {
+  getPodcastById(id: string): Promise<ItunesPodcast> {
     return this.http
       .get<any>(`https://itunes.apple.com/lookup?id=${id}&callback=`)
       .map((response) => {
@@ -173,10 +189,11 @@ export class PodcastService {
           lastUpdate: podcast.releaseDate
         };
       })
-      .catch(this.handleError);
+      .catch(this.handleError)
+      .toPromise();
   }
 
-  private handleError(error: Response) {
+  private handleError(error): Observable<any> {
     return Observable.throw(error || 'Server error');
   }
 

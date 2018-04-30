@@ -6,7 +6,7 @@
           class="podcast__img" 
           src="{{podcast.cover | toHttps}}" 
           alt="{{podcast.name}} - artwork"
-          (load)="topPodcastLoaded ? podcast.loaded = 1 : podcast.loaded = 0" 
+          (load)="podcast.loaded = 1" 
         />
       </div>
       <div class="podcast__info">

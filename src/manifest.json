@@ -1,6 +1,6 @@
 {
   "name": "Angular PWA Podcast App",
-  "short_name": "NGX Podcast",
+  "short_name": "PWA Podcast",
   "theme_color": "#000000",
   "background_color": "#000000",
   "description": "A podcast app made with Angular 5, Pouchdb, Html5 Web Audio API and PWA Features.",

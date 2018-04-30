@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angula
 import { Subject } from 'rxjs/Subject';
 import { ItunesPodcast } from '@shared/models/itunes-podcast.models';
 import { PodcastService } from '@core/http/podcast.service';
+import { NgProgress } from 'ngx-progressbar';
 
 @Component({
   selector: 'app-search',
@@ -14,16 +15,21 @@ export class SearchComponent implements OnInit, AfterViewInit {
 
   @ViewChild('inputSearch') inputEl: ElementRef;
 
-  constructor(private podcastService: PodcastService) {
+  constructor(private podcastService: PodcastService,
+    private ngProgress: NgProgress) {
     this.podcastService
       .searchItunesPodcastOnKeyUp(this.term$)
-      .subscribe((response) => this.searchResult = response);
+      .subscribe((response) => {
+        this.searchResult = response
+        this.ngProgress.done();
+      });
   }
 
   keyUp(event: KeyboardEvent) {
-    if(event.keyCode === 13) this.inputEl.nativeElement.blur()
-    
-    const target = <HTMLInputElement> event.target;
+    this.ngProgress.start();
+    if (event.keyCode === 13) this.inputEl.nativeElement.blur()
+
+    const target = <HTMLInputElement>event.target;
     this.term$.next(target.value);
   }
 

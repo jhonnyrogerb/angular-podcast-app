@@ -34,11 +34,11 @@ export class FeedComponent implements OnInit, AfterViewInit {
     private pouchdbSubscribeService: PouchdbSubscribeService) { }
 
   ngOnInit() {
+    this.ngProgress.start();
     this.changeHeader();
 
     this.router.params.subscribe(async (params: Params) => {
-      this.podcast = await this.loadFeedFromDb(params.id);
-      this.changeHeader();
+      await this.loadFeedFromDb(params.id);
 
       if (!this.podcast) this.loadFeedFromWeb(params.id);
       if (!this.podcast) this.isSubscribed = false;
@@ -49,40 +49,34 @@ export class FeedComponent implements OnInit, AfterViewInit {
     window.scrollTo(0, 0);
   }
 
-  changeHeader() {
+  changeHeader(error?: string) {
+    if(error) return this.headerService.headerTitle  = error;
     this.headerService.headerTitle = this.podcast ? this.podcast.title : 'Loading...';
   }
 
-  async loadFeedFromDb(feedId: string): Promise<ItunesPodcast> {
+  async loadFeedFromDb(feedId: string) {
     try {
-      this.ngProgress.start();
-      const feed = await this.pouchdbSubscribeService.getOne(feedId);
-      this.ngProgress.done();
-      return feed;
+      this.podcast = await this.pouchdbSubscribeService.getOne(feedId);
     } catch (e) {
-      console.log('feed not found', e);
-      return null;
+      this.changeHeader();
+    } finally {
+      this.changeHeader();
+      this.ngProgress.done();
     }
   }
 
-  loadFeedFromWeb(feedId: string): void {
-    this.ngProgress.start();
+  async loadFeedFromWeb(feedId: string) {
     this.isRefreshing = true;
-
-    this.podcastService.getPodcastById(feedId).subscribe(podcast => {
-      this.podcastService.getFeed(podcast).subscribe(async (response) => {
-        try {
-          this.podcast = await response;
-          this.changeHeader();
-          this.ngProgress.done();
-        } catch (e) {
-          console.log('erro', response);
-          this.ngProgress.done();
-        }
-
-        this.isRefreshing = false;
-      });
-    });
+    try {
+      const podcast = await this.podcastService.getPodcastById(feedId);
+      this.podcast = await this.podcastService.getFeed(podcast)
+    } catch (e) {
+      this.changeHeader("Fail to Load Feed");
+    } finally {
+      this.changeHeader();
+      this.ngProgress.done();
+      this.isRefreshing = false;
+    }
   }
 
 
@@ -101,10 +95,10 @@ export class FeedComponent implements OnInit, AfterViewInit {
 
   async subscribeFeed(podcast: ItunesPodcast) {
     try {
-      await this.pouchdbSubscribeService.putOne(String(podcast.id), podcast);
+      await this.pouchdbSubscribeService.putOne(String(podcast.id), {...podcast, _rev: undefined, subscribed: true});
       this.isSubscribed = true;
     } catch (e) {
-      console.log("failt to subscribe", e)
+      console.log("Failt to subscribe", e)
     }
   }
 
@@ -113,13 +107,13 @@ export class FeedComponent implements OnInit, AfterViewInit {
       await this.pouchdbSubscribeService.removeOne(String(podcast.id));
       this.isSubscribed = false;
     } catch (e) {
-      console.log("failt to unsubscribe", e)
+      console.log("Fail to unsubscribe", e)
     }
   }
 
   async updateFeed() {
-    this.isRefreshing = true;
-    this.loadFeedFromWeb(this.podcast.id);
+    await this.loadFeedFromWeb(this.podcast.id);
+    this.pouchdbSubscribeService.putOne(String(this.podcast.id), this.podcast)
   }
 
   stopPropagation(event: Event) {

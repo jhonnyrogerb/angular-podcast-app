@@ -44,7 +44,6 @@ export const PodcastProvider = (provider: PodcastService) => {
     PouchdbAudioService,
     PouchdbSubscribeService,
     AudioService,
-    { provide: HTTP_INTERCEPTORS, useClass: NgProgressInterceptor, multi: true },
     { provide: APP_INITIALIZER, useFactory: PodcastProvider, deps: [PodcastService], multi: true }],
   bootstrap: [AppComponent]
 })

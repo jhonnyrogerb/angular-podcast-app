@@ -3,6 +3,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { HeaderService } from '@core/services/header.service';
 import { ItunesPodcast } from '@shared/models/itunes-podcast.models';
 import { PodcastService } from '@core/http/podcast.service';
+import { NgProgress } from 'ngx-progressbar';
 
 @Component({
   selector: 'app-category',
@@ -15,24 +16,25 @@ export class CategoryComponent implements OnInit, AfterViewInit {
   categoryName: string;
 
   constructor(private podcastService: PodcastService,
+    private ngProgress: NgProgress,
     private router: ActivatedRoute,
     private headerService: HeaderService) {
-    this.podcasts = new Array(200).fill({
-      id: '',
-      cover: '/assets/img/top-podcast-placeholder.png',
-      title: '',
-      author: ''
-    });
+    this.podcasts = new Array(40).fill(new ItunesPodcast());
   }
 
   ngOnInit() {
-    this.router.params.subscribe((params: Params) => {
-      this.categoryName = params.name;
-      this.headerService.headerTitle = this.categoryName;
-
-      this.podcastService
-        .searchPodcastByCategory(params.id)
-        .subscribe(response => this.podcasts = response);
+    this.ngProgress.start();
+    this.router.params.subscribe(async (params: Params) => {
+      try {
+        this.categoryName = params.name;
+        this.headerService.headerTitle = this.categoryName;
+        this.podcasts = await this.podcastService.searchPodcastByCategory(params.id)
+      } catch (e) {
+        this.headerService.headerTitle = "Fail to load category";
+        console.log("fail to load category", e)
+      } finally {
+        this.ngProgress.done();
+      }
     });
   }
 

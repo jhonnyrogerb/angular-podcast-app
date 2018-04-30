@@ -17,7 +17,7 @@
     padding: 10px;
     opacity: 0;
     transition: opacity .6s ease-in;
-    max-width: 300px;
+    max-width: 250px;
 
     @include media-breakpoint-only(md) {
         flex-basis: calc(25% - 20px);

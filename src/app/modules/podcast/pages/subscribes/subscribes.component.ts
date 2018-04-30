@@ -34,24 +34,19 @@ export class SubscribesComponent implements OnInit {
   async getSubscribes(): Promise<any[]> {
     try {
       this.ngProgress.start();
-      const queryResylt = await this.pouchdbSubscribeService.query(
-        { lastUpdate: { '$gte': null } },
-        { lastUpdate: 'desc' },
-        1000
-      );
-
-      const podcasts = <ItunesPodcast[]>queryResylt.docs;
+      const { docs: podcasts }: { docs: ItunesPodcast[] } = await this.pouchdbSubscribeService
+        .query({ lastUpdate: { '$gte': null } }, { lastUpdate: 'desc' }, 1000);
 
       const lastEpisodes = podcasts
         .map(podcast => podcast.episodes[0])
         .sort((a, b) => new Date(b.releaseDate).getDate() - new Date(a.releaseDate).getDate());
 
-      this.ngProgress.done();
       return [podcasts, lastEpisodes];
     } catch (e) {
       console.log('Fail load subscribes', e);
-      this.ngProgress.done();
       return [];
+    } finally {
+      this.ngProgress.done();
     }
   }
 
@@ -63,26 +58,19 @@ export class SubscribesComponent implements OnInit {
 
   async updateFeed() {
     try {
-      const queryResylt = await this.pouchdbSubscribeService.query(
-        { lastUpdate: { '$lte': Moment().subtract(1, 'hour').toDate() } },
-        { lastUpdate: 'desc' },
-        1000
-      );
+      const oneHour = Moment().subtract(1, 'hour').toDate();
+      const { docs: podcasts }: { docs: ItunesPodcast[] } = await this.pouchdbSubscribeService
+        .query({ lastUpdate: { '$lte': oneHour } }, { lastUpdate: 'desc' }, 1000);
 
-      const podcasts = <ItunesPodcast[]>queryResylt.docs;
-
-      podcasts.map(podcast => {
-        this.podcastService
-          .getFeed(podcast)
-          .subscribe(async response => {
-            try {
-              const updatedPodcast = await response;
-              console.log('updating feed', updatedPodcast.title, 'lastUpdate', updatedPodcast.lastUpdate);
-              await this.pouchdbSubscribeService.putOne(String(updatedPodcast.id), updatedPodcast);
-            } catch (e) {
-              console.log('fail to update feed', e);
-            }
-          });
+      podcasts.forEach(async podcast => {
+        try {
+          const feed = await this.podcastService.getFeed(podcast)
+          const updatedPodcast = await feed;
+          await this.pouchdbSubscribeService.putOne(String(updatedPodcast.id), updatedPodcast);
+          console.log('updating feed', updatedPodcast.title, 'lastUpdate', updatedPodcast.lastUpdate);
+        } catch (e) {
+          console.log('fail to update feed', e);
+        }
       });
     } catch (e) {
       console.log('fail to update feed', e);
