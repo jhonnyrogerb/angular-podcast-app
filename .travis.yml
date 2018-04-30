@@ -1,11 +1,9 @@
 language: node_js
 node_js:
-- '8.11.1'
+- 8.11.1
 script:
-- npm i
 - ng build --prod --aot
 deploy:
   provider: firebase
-  token:
-    secure: DFtJ8nPasNechkTyDcPtIxPaIevqjTLa3Ohx1+0+lk/iZnHQPhKMmL2NFzy4i4m+mCLUZI7glq623GX/Zb3P2bHsVXmqwhzge7t8DYzH8piaVjNhzIsqrOhnJGhkTUfSzkfDJQazL70l8qDXl2dXe7PPGH3oS1ErqMdZEkP/0LPWXTGDCoGNd5KWmBEbrKieIo2YSHiag+PqyfLOFpJuKjIfDOiPAeJrRh44ugr2t9DF99ctPxNfmC6By9KJFA72QS7P5FTMZv8bn50pXisE5v81OHiCFSNks8gZH2nBqjPDt3qrVuFWXgwFk99mjYFDCO48uIWROj/ShmlsJHQKlsqKZ+3PBR6y/90FfPfY9y0KKXI0QzDxwFYnnnJ7uR/O3r+VnUaUQ2hg61scM8COIwfFPZKkw8MsgqqGAgl4IFouwZSIDH1o8NI5HMOp2H85igR3t3Yux2MqfKo/tKvGAEwMjlpG+m7f4oU49O1t1bEusOBqvHyIZgmxRnabC6YWIQH98cy1SuUPAVmPV7iXSuGywSECGHmkL3IwyQECIeknw9RYienXyMJwkeH5JjHQ8XyvquqrLcMxMVLrEqvLa8f7OSMkeAZfH91sYgMvIrxljUCGz8q0q2Qj0Apk00jVUBvnV4l4gGSKv/SaJMVX6jTNrMdOVSsD+kojqHLwgf8=
-  project: "angular-podcast-app"
+  token: $FIREBASE_TOKEN
+  project: angular-podcast-app
