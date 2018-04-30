@@ -6,4 +6,3 @@ script:
 deploy:
   provider: firebase
   token: $FIREBASE_TOKEN
-  project: angular-podcast-app
