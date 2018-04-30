@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PrettySizePipe } from '@shared/pipes/pretty-size.pipe';
 import { DateFromNowPipe } from '@shared/pipes/date-from-now.pipe';
+import { ToHttpsPipe } from './pipes/to-https.pipe';
 
 @NgModule({
   imports: [
@@ -9,15 +10,18 @@ import { DateFromNowPipe } from '@shared/pipes/date-from-now.pipe';
   ],
   declarations: [
     PrettySizePipe,
-    DateFromNowPipe
+    DateFromNowPipe,
+    ToHttpsPipe
   ],
   providers: [
     PrettySizePipe,
-    DateFromNowPipe
+    DateFromNowPipe,
+    ToHttpsPipe
   ],
   exports: [
     PrettySizePipe,
-    DateFromNowPipe
+    DateFromNowPipe,
+    ToHttpsPipe
   ]
 })
 export class SharedModule {

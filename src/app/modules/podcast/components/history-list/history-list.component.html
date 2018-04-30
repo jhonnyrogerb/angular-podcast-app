@@ -3,7 +3,7 @@
     <li *ngFor="let episode of episodes" class="episode">
       <a class="episode__link" (click)="setEpisode(episode)">
         <div class="episode__artwork">
-          <img class="episode__img" src="{{episode.cover}}" alt="{{episode.podcastTitle}} - artwork" />
+          <img class="episode__img" src="{{episode.cover | toHttps}}" alt="{{episode.podcastTitle}} - artwork" />
         </div>
         <div class="episode__info">
           <div class="episode__date">Played {{ episode.lastPlay | dateFromNow }}</div>

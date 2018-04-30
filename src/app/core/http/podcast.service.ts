@@ -19,6 +19,7 @@ import 'rxjs/add/operator/publishReplay';
 import 'rxjs/add/operator/publishReplay';
 import 'rxjs/add/operator/delay';
 import 'rxjs/add/observable/throw';
+import { ToHttpsPipe } from '@shared/pipes/to-https.pipe';
 
 
 @Injectable()
@@ -28,17 +29,18 @@ export class PodcastService {
   private corsProxy: string;
   private countryCode = 'US';
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,
+    private toHttpPipe: ToHttpsPipe) {
     this.corsProxy = environment.corsProxy;
   }
 
   getLocation() {
     return new Promise((resolve, reject) => {
-      this.http.get<any>('http://ip-api.com/json/?callback=')
+      this.http.get<any>('https://ipapi.co/json/?callback=')
         .catch(this.handleError)
         .finally(() => resolve(true))
-        .subscribe(({ countryCode }) => {
-          this.countryCode = countryCode;
+        .subscribe(({ country }) => {
+          if(country) this.countryCode = country;
           resolve(true);
         });
     });
@@ -132,7 +134,7 @@ export class PodcastService {
               return {
                 ...episode,
                 author: podcast.author,
-                src: episode.enclosure.url,
+                src: this.toHttpPipe.transform(episode.enclosure.url),
                 type: episode.enclosure.type,
                 cover: episode.itunes.image || podcast.cover,
                 description: episode.contentSnippet || episode.content,

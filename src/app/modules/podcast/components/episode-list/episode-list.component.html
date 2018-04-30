@@ -2,7 +2,7 @@
   <li *ngFor="let episode of episodes" class="episode">
     <a class="episode__link" (click)="setEpisode(episode)">
       <div class="episode__artwork">
-        <img class="episode__img" src="{{episode.cover}}" alt="{{episode.title}} - artwork" />
+        <img class="episode__img" src="{{episode.cover | toHttps}}" alt="{{episode.title}} - artwork" />
       </div>
       <div class="episode__info">
         <div class="episode__date">{{ episode.releaseDate | dateFromNow }}</div>
