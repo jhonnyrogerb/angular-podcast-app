@@ -20,6 +20,14 @@ export class SearchComponent implements OnInit, AfterViewInit {
       .subscribe((response) => this.searchResult = response);
   }
 
+  keyUp(event: KeyboardEvent) {
+    if(event.keyCode === 13) this.inputEl.nativeElement.blur()
+    
+    const target = <HTMLInputElement> event.target;
+    this.term$.next(target.value);
+  }
+
+
   ngAfterViewInit() {
     window.scrollTo(0, 0);
     this.inputEl.nativeElement.focus();
