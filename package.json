@@ -47,6 +47,7 @@
     "core-js": "^2.4.1",
     "font-awesome": "^4.7.0",
     "moment": "^2.22.0",
+    "ngx-progressbar": "^2.1.1",
     "normalize-scss": "^7.0.1",
     "normalize.css": "^8.0.0",
     "pouchdb": "^6.4.3",

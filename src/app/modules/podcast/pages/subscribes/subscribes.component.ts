@@ -5,6 +5,7 @@ import { ItunesPodcast } from '@shared/models/itunes-podcast.models';
 import { ItunesEpisode } from '@shared/models/itunes-episode.model';
 import { PodcastService } from '@core/http/podcast.service';
 import * as Moment from 'moment';
+import { NgProgress } from 'ngx-progressbar';
 
 @Component({
   selector: 'app-subscribes',
@@ -16,6 +17,7 @@ export class SubscribesComponent implements OnInit {
   lastEpisodes: ItunesEpisode[];
 
   constructor(
+    private ngProgress: NgProgress,
     private pouchdbSubscribeService: PouchdbSubscribeService,
     private podcastService: PodcastService,
     private audioService: AudioService) {
@@ -31,6 +33,7 @@ export class SubscribesComponent implements OnInit {
 
   async getSubscribes(): Promise<any[]> {
     try {
+      this.ngProgress.start();
       const queryResylt = await this.pouchdbSubscribeService.query(
         { lastUpdate: { '$gte': null } },
         { lastUpdate: 'desc' },
@@ -43,9 +46,11 @@ export class SubscribesComponent implements OnInit {
         .map(podcast => podcast.episodes[0])
         .sort((a, b) => new Date(b.releaseDate).getDate() - new Date(a.releaseDate).getDate());
 
+      this.ngProgress.done();
       return [podcasts, lastEpisodes];
     } catch (e) {
       console.log('Fail load subscribes', e);
+      this.ngProgress.done();
       return [];
     }
   }

@@ -6,6 +6,7 @@ import { AudioService } from '@core/services/audio.service';
 import { PouchdbSubscribeService } from '@core/services/pouchdb-subscribe.service';
 import { ItunesPodcast } from '@shared/models/itunes-podcast.models';
 import { PodcastService } from '@core/http/podcast.service';
+import { NgProgress } from 'ngx-progressbar';
 
 @Component({
   selector: 'app-feed',
@@ -26,6 +27,7 @@ export class FeedComponent implements OnInit, AfterViewInit {
   @ViewChild('podcastInfo') podcastInfo: ElementRef;
 
   constructor(private podcastService: PodcastService,
+    private ngProgress: NgProgress,
     private router: ActivatedRoute,
     private headerService: HeaderService,
     private audioService: AudioService,
@@ -53,7 +55,10 @@ export class FeedComponent implements OnInit, AfterViewInit {
 
   async loadFeedFromDb(feedId: string): Promise<ItunesPodcast> {
     try {
-      return await this.pouchdbSubscribeService.getOne(feedId);
+      this.ngProgress.start();
+      const feed = await this.pouchdbSubscribeService.getOne(feedId);
+      this.ngProgress.done();
+      return feed;
     } catch (e) {
       console.log('feed not found', e);
       return null;
@@ -61,6 +66,7 @@ export class FeedComponent implements OnInit, AfterViewInit {
   }
 
   loadFeedFromWeb(feedId: string): void {
+    this.ngProgress.start();
     this.isRefreshing = true;
 
     this.podcastService.getPodcastById(feedId).subscribe(podcast => {
@@ -68,8 +74,10 @@ export class FeedComponent implements OnInit, AfterViewInit {
         try {
           this.podcast = await response;
           this.changeHeader();
+          this.ngProgress.done();
         } catch (e) {
           console.log('erro', response);
+          this.ngProgress.done();
         }
 
         this.isRefreshing = false;

@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { PodcastModule } from './modules/podcast/podcast.module';
@@ -17,7 +17,7 @@ import { SharedModule } from '@shared/shared.module';
 import { PodcastService } from '@core/http/podcast.service';
 import { environment } from 'environments/environment';
 import { ServiceWorkerModule } from '@angular/service-worker';
-
+import { NgProgressModule, NgProgressInterceptor } from 'ngx-progressbar';
 
 export const PodcastProvider = (provider: PodcastService) => {
   return () => provider.getLocation();
@@ -34,6 +34,7 @@ export const PodcastProvider = (provider: PodcastService) => {
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    NgProgressModule,
     PodcastModule,
     AppRoutingModule,
     SharedModule.forRoot()
@@ -43,6 +44,7 @@ export const PodcastProvider = (provider: PodcastService) => {
     PouchdbAudioService,
     PouchdbSubscribeService,
     AudioService,
+    { provide: HTTP_INTERCEPTORS, useClass: NgProgressInterceptor, multi: true },
     { provide: APP_INITIALIZER, useFactory: PodcastProvider, deps: [PodcastService], multi: true }],
   bootstrap: [AppComponent]
 })

@@ -10,6 +10,10 @@ app-podcast-list /deep/ .podcast__list {
     justify-content: left !important;
 }
 
+app-podcast-list /deep/ .podcast {
+    max-width: 200px !important;
+}
+
 .subscribe{
     background: linear-gradient(#010101, #050505) ;
     min-height: 100vh;
