@@ -1,6 +1,6 @@
 <div class="search__container">
     <div class="search">
-        <input #inputSearch placeholder="Search By Podcast name, author etc..." class="search__input" type="text" (keyup)="term$.next($event.target.value)">
+        <input #inputSearch placeholder="Search By Podcast name, author etc..." class="search__input" type="text" (keyup)="keyUp($event)">
     </div>
     <div class="search__result">
     <app-podcast-list [podcasts]="searchResult" [topPodcastLoaded]="true"></app-podcast-list>
