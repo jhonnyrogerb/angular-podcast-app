@@ -1,5 +1,5 @@
 <ul class="podcast__list">
-  <li class="podcast" *ngFor="let podcast of podcasts" [ngStyle]="{opacity: podcast.loaded}">
+  <li class="podcast" *ngFor="let podcast of podcasts; trackBy: podcast?.id" [ngStyle]="{opacity: podcast.loaded}">
     <a class="podcast__link" [routerLink]="['/podcast', 'feed', podcast.id]">
       <div class="podcast__artwork">
         <img 

@@ -18,7 +18,6 @@ export class PouchdbAudioService {
   private async createIndexes() {
     try {
       await this.db.createIndex({ index: { fields: ['lastPlay'] } });
-      console.log("index criado!!!")
     } catch (err) {
       console.log(err);
     }
