@@ -31,12 +31,11 @@ a, button{
     cursor: pointer;
 }
 
-*{
-    appearance: none;
-}
-
 :focus, :active {
     outline: none;
+    user-select: none;
     appearance: none;
     box-shadow: none;
+    -webkit-tap-highlight-color: transparent;
+    tap-highlight-color: transparent;
 }

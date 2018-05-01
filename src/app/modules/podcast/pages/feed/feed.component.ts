@@ -57,11 +57,11 @@ export class FeedComponent implements OnInit, AfterViewInit {
   async loadFeedFromDb(feedId: string) {
     try {
       this.podcast = await this.pouchdbSubscribeService.getOne(feedId);
+      this.ngProgress.done();
     } catch (e) {
       this.changeHeader();
     } finally {
       this.changeHeader();
-      this.ngProgress.done();
     }
   }
 
@@ -69,11 +69,11 @@ export class FeedComponent implements OnInit, AfterViewInit {
     this.isRefreshing = true;
     try {
       const podcast = await this.podcastService.getPodcastById(feedId);
-      this.podcast = await this.podcastService.getFeed(podcast)
+      this.podcast = await this.podcastService.getFeed(podcast);
+      this.changeHeader();
     } catch (e) {
       this.changeHeader("Fail to Load Feed");
     } finally {
-      this.changeHeader();
       this.ngProgress.done();
       this.isRefreshing = false;
     }

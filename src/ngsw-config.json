@@ -5,21 +5,29 @@
     "installMode": "prefetch",
     "resources": {
       "files": [
+        "/manifest.json",
         "/favicon.ico",
         "/index.html"
       ],
       "versionedFiles": [
         "/*.bundle.css",
         "/*.bundle.js",
-        "/*.chunk.js"
+        "/*.chunk.js",
+        "/*.eot",
+        "/*.svg",
+        "/*.woff2",
+        "/*.ttf",
+        "/*.woff"
       ]
     }
   }, {
     "name": "assets",
-    "installMode": "lazy",
+    "installMode": "prefetch",
     "updateMode": "prefetch",
     "resources": {
       "files": [
+        "/assets/img/pause-button.png",
+        "/assets/img/play-button.png",
         "/assets/**"
       ]
     }

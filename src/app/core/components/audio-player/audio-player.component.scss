@@ -26,6 +26,7 @@ $zindex-navbar: 1100;
     margin: 10px 5px;
     flex-basis: 60px;
     min-width: 60px;
+    cursor: pointer;
 
     &.pause {
         background-image: url('/assets/img/pause-button.png');

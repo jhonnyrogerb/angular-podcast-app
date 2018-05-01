@@ -7,6 +7,7 @@
           src="{{podcast.cover | toHttps}}" 
           alt="{{podcast.name}} - artwork"
           (load)="podcast.loaded = 1" 
+          (error)="$event.target.src = '/assets/img/top-podcast-placeholder.png'"
         />
       </div>
       <div class="podcast__info">

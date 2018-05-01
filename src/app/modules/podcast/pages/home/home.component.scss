@@ -1,6 +1,8 @@
 
-.home{
-    background: linear-gradient(#010101, #050505) ;
-    font-family: sans-serif, Arial, Helvetica
+@import "variables";
 
+.home{
+    background: $default-backgrount;
+    overflow: hidden;
+    min-height: 100vh;
 }

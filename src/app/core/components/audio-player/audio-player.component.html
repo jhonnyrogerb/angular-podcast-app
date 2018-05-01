@@ -14,5 +14,10 @@
     </div>
   </div>
 
-  <img class="audio__cover" src="{{(episode.cover | toHttps) || 'assets/img/cover-placeholder.jpg'}}" alt="Cover - Podcast {{episode.author}} - Episode {{episode.title}}">
+  <img 
+    class="audio__cover" 
+    src="{{(episode.cover | toHttps) || 'assets/img/cover-placeholder.jpg'}}" 
+    alt="Cover - Podcast {{episode.author}} - Episode {{episode.title}}"
+    (error)="$event.target.src = 'assets/img/cover-placeholder.jpg'"
+  >
 </div>
