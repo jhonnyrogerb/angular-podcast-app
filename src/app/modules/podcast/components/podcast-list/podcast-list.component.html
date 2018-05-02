@@ -1,11 +1,12 @@
 <ul class="podcast__list">
-  <li class="podcast" *ngFor="let podcast of podcasts; trackBy: podcast?.id" [ngStyle]="{opacity: podcast.loaded}">
+  <li class="podcast" *ngFor="let podcast of podcasts; trackBy: podcast?.id">
     <a class="podcast__link" [routerLink]="['/podcast', 'feed', podcast.id]">
       <div class="podcast__artwork">
         <img 
           class="podcast__img" 
           src="{{podcast.cover | toHttps}}" 
           alt="{{podcast.name}} - artwork"
+          [ngStyle]="{opacity: podcast.loaded}"
           (load)="podcast.loaded = 1" 
           (error)="$event.target.src = '/assets/img/top-podcast-placeholder.png'"
         />

@@ -73,6 +73,7 @@ export class FeedComponent implements OnInit, AfterViewInit {
       this.changeHeader();
     } catch (e) {
       this.changeHeader("Fail to Load Feed");
+      console.log("Fail to load Feed", e);
     } finally {
       this.ngProgress.done();
       this.isRefreshing = false;

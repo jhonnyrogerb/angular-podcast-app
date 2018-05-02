@@ -11,7 +11,7 @@ export class PouchdbSubscribeService {
 
 
   constructor() {
-    if (!this.db) this.db = new PouchDB('angular-podcast-subscribes', { adapter: 'idb' });
+    if (!this.db) this.db = new PouchDB('angular-podcast-subscribes');
     this.createIndexes();
   }
 

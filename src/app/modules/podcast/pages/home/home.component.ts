@@ -13,7 +13,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   categories: ItunesCategory[];
   podcasts: ItunesPodcast[];
-  topPodcastLoaded = false;
 
   constructor(
     private podcasService: PodcastService,
@@ -28,7 +27,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
       this.categories = await this.podcasService.getItunesCategories()
       this.podcasts = await this.podcasService.getItunesTopPodcast()
-      this.topPodcastLoaded = true;
     } catch (e) {
       console.log("Fail to load podcasts", e)
     } finally {

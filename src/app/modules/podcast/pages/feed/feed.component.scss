@@ -2,8 +2,9 @@
 @import "variables";
 
 .podcast{
+    background: $default-backgrount;
+    overflow: hidden;
     min-height: 100vh;
-    background: $default-backgrount
 }
 
 .podcast__subscribe{

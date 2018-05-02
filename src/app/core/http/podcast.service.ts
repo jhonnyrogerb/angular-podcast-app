@@ -20,6 +20,7 @@ import 'rxjs/add/operator/publishReplay';
 import 'rxjs/add/operator/delay';
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/observable/of';
+import "rxjs/add/operator/timeout";
 
 import { ToHttpsPipe } from '@shared/pipes/to-https.pipe';
 import { HeaderService } from '@core/services/header.service';
@@ -42,6 +43,7 @@ export class PodcastService {
     try {
       const { country } = await this.http
         .get<any>('https://ipapi.co/json/?callback=')
+        .timeout(1500)
         .catch(this.handleError)
         .toPromise();
 

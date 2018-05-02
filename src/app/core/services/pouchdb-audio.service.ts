@@ -10,7 +10,7 @@ export class PouchdbAudioService {
 
 
   constructor() {
-    if (!this.db) this.db = new PouchDB('angular-podcast-audio', { adapter: 'idb' });
+    if (!this.db) this.db = new PouchDB('angular-podcast-audio');
     this.createIndexes();
   }
 
