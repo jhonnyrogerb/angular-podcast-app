@@ -24,4 +24,8 @@ export class EpisodeListComponent implements OnInit {
   stopPropagation(event: Event) {
     event.stopPropagation();
   }
+
+  trackEpisode(index, episode) {
+    return episode ? episode.src : undefined;
+  }
 }

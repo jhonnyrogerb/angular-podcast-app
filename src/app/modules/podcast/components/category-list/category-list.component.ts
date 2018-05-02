@@ -20,6 +20,9 @@ export class CategoryListComponent implements OnInit {
   ngOnInit() {
   }
 
+  trackCategory(index, category) {
+    return category ? category.id : undefined;
+  }
 
   ramdomNumber(): number {
     let min = 1;

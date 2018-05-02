@@ -17,4 +17,8 @@ export class PodcastListComponent implements OnInit {
 
   ngOnInit() {
   }
+
+  trackPodcast(index, podcast) {
+    return podcast ? podcast.id : undefined;
+  }
 }

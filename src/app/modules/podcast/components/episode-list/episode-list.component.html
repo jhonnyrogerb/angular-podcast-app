@@ -1,5 +1,5 @@
 <ul class="episode__list">
-  <li *ngFor="let episode of episodes; trackBy: episode?.scr" class="episode">
+  <li *ngFor="let episode of episodes; trackBy: trackEpisode" class="episode">
     <a class="episode__link" (click)="setEpisode(episode)">
       <div class="episode__artwork">
         <img 
