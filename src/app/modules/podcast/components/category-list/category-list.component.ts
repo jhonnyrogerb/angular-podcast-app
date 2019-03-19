@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
+import {Component, Input, ChangeDetectionStrategy, OnInit} from '@angular/core';
 import * as gradient from 'random-gradient';
 import { ItunesCategory } from '@shared/models/itunes-category.models';
 
@@ -24,7 +24,7 @@ export class CategoryListComponent implements OnInit {
     return category ? category.id : undefined;
   }
 
-  ramdomNumber(): number {
+  randomNumber(): number {
     let min = 1;
     let max = 100;
     min = Math.ceil(min);

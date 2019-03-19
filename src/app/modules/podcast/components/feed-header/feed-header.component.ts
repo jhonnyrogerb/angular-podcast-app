@@ -23,9 +23,9 @@ export class FeedHeaderComponent implements OnInit {
   getColor(event: Event) {
     const eventTarget = <HTMLImageElement>event.target;
     const colorPalette = this.colorThief.getPalette(eventTarget);
-    const ramdomColor = colorPalette[Math.floor(Math.random() * colorPalette.length)];
+    const randomColor = colorPalette[Math.floor(Math.random() * colorPalette.length)];
 
-    this.coverColor = `linear-gradient(rgba(${ramdomColor.join(',')},.8), #010101)`;
+    this.coverColor = `linear-gradient(rgba(${randomColor.join(',')},.8), #010101)`;
     this.imgLoaded = true;
   }
 

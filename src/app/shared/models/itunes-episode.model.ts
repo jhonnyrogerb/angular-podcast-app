@@ -15,5 +15,5 @@ export class ItunesEpisode {
     durationString = '00:00';
     currentTimeString = '00:00';
     podcastTitle: string;
-    podcastId: string
+    podcastId: string;
 }

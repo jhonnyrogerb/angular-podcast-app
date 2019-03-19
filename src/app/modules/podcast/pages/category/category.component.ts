@@ -28,10 +28,10 @@ export class CategoryComponent implements OnInit, AfterViewInit {
       try {
         this.categoryName = params.name;
         this.headerService.headerTitle = this.categoryName;
-        this.podcasts = await this.podcastService.searchPodcastByCategory(params.id)
+        this.podcasts = await this.podcastService.searchPodcastByCategory(params.id);
       } catch (e) {
-        this.headerService.headerTitle = "Fail to load category";
-        console.log("fail to load category", e)
+        this.headerService.headerTitle = 'Fail to load category';
+        console.log('fail to load category', e);
       } finally {
         this.ngProgress.done();
       }

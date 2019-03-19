@@ -20,14 +20,14 @@ export class SearchComponent implements OnInit, AfterViewInit {
     this.podcastService
       .searchItunesPodcastOnKeyUp(this.term$)
       .subscribe((response) => {
-        this.searchResult = response
+        this.searchResult = response;
         this.ngProgress.done();
       });
   }
 
   keyUp(event: KeyboardEvent) {
     this.ngProgress.start();
-    if (event.keyCode === 13) this.inputEl.nativeElement.blur()
+    if (event.keyCode === 13) this.inputEl.nativeElement.blur();
 
     const target = <HTMLInputElement>event.target;
     this.term$.next(target.value);

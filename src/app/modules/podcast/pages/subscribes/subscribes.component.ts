@@ -64,7 +64,7 @@ export class SubscribesComponent implements OnInit {
 
       podcasts.forEach(async podcast => {
         try {
-          const feed = await this.podcastService.getFeed(podcast)
+          const feed = await this.podcastService.getFeed(podcast);
           const updatedPodcast = await feed;
           await this.pouchdbSubscribeService.putOne(String(updatedPodcast.id), updatedPodcast);
           console.log('updating feed', updatedPodcast.title, 'lastUpdate', updatedPodcast.lastUpdate);

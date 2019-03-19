@@ -23,12 +23,12 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   async ngOnInit() {
     try {
-      this.ngProgress.start()
+      this.ngProgress.start();
 
-      this.categories = await this.podcasService.getItunesCategories()
-      this.podcasts = await this.podcasService.getItunesTopPodcast()
+      this.categories = await this.podcasService.getItunesCategories();
+      this.podcasts = await this.podcasService.getItunesTopPodcast();
     } catch (e) {
-      console.log("Fail to load podcasts", e)
+      console.log('Fail to load podcasts', e);
     } finally {
       this.ngProgress.done();
     }

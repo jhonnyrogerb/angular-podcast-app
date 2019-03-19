@@ -50,7 +50,7 @@ export class FeedComponent implements OnInit, AfterViewInit {
   }
 
   changeHeader(error?: string) {
-    if(error) return this.headerService.headerTitle  = error;
+    if (error) return this.headerService.headerTitle  = error;
     this.headerService.headerTitle = this.podcast ? this.podcast.title : 'Loading...';
   }
 
@@ -72,8 +72,8 @@ export class FeedComponent implements OnInit, AfterViewInit {
       this.podcast = await this.podcastService.getFeed(podcast);
       this.changeHeader();
     } catch (e) {
-      this.changeHeader("Fail to Load Feed");
-      console.log("Fail to load Feed", e);
+      this.changeHeader('Fail to Load Feed');
+      console.log('Fail to load Feed', e);
     } finally {
       this.ngProgress.done();
       this.isRefreshing = false;
@@ -99,7 +99,7 @@ export class FeedComponent implements OnInit, AfterViewInit {
       await this.pouchdbSubscribeService.putOne(String(podcast.id), {...podcast, _rev: undefined, subscribed: true});
       this.isSubscribed = true;
     } catch (e) {
-      console.log("Failt to subscribe", e)
+      console.log('Failt to subscribe', e);
     }
   }
 
@@ -108,13 +108,13 @@ export class FeedComponent implements OnInit, AfterViewInit {
       await this.pouchdbSubscribeService.removeOne(String(podcast.id));
       this.isSubscribed = false;
     } catch (e) {
-      console.log("Fail to unsubscribe", e)
+      console.log('Fail to unsubscribe', e);
     }
   }
 
   async updateFeed() {
     await this.loadFeedFromWeb(this.podcast.id);
-    this.pouchdbSubscribeService.putOne(String(this.podcast.id), this.podcast)
+    this.pouchdbSubscribeService.putOne(String(this.podcast.id), this.podcast);
   }
 
   stopPropagation(event: Event) {

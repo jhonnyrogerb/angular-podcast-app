@@ -23,7 +23,7 @@ export class HistoryComponent implements OnInit, AfterViewInit {
       this.ngProgress.start();
       const { docs: episodes } = await this.pouchdbAudioService
         .query({ lastPlay: { '$gte': null } }, { lastPlay: 'desc' }, 100);
-        
+
       this.episodes = episodes;
       this.ngProgress.done();
     } catch (e) {

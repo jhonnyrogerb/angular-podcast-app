@@ -18,7 +18,7 @@ export class HistoryListComponent implements OnInit {
   trackEpisode(index, episode) {
     return episode ? episode.src : undefined;
   }
-  
+
   setEpisode(episode) {
     this.audioService.setAudio(episode);
   }

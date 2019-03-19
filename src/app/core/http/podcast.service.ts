@@ -20,7 +20,7 @@ import 'rxjs/add/operator/publishReplay';
 import 'rxjs/add/operator/delay';
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/observable/of';
-import "rxjs/add/operator/timeout";
+import 'rxjs/add/operator/timeout';
 
 import { ToHttpsPipe } from '@shared/pipes/to-https.pipe';
 import { HeaderService } from '@core/services/header.service';
@@ -31,12 +31,12 @@ export class PodcastService {
   private itunesTopPodcastObservable: Promise<ItunesPodcast[]>;
   private itunesCategoriesObservable: Promise<ItunesCategory[]>;
 
-  private corsProxy: string;
+  private apiEndpoint: string;
   private countryCode = 'US';
 
   constructor(private http: HttpClient,
     private toHttpPipe: ToHttpsPipe) {
-    this.corsProxy = environment.corsProxy;
+    this.apiEndpoint = environment.apiEndpoint;
   }
 
   async getLocation() {
@@ -58,7 +58,7 @@ export class PodcastService {
     if (this.itunesTopPodcastObservable) return this.itunesTopPodcastObservable;
 
     this.itunesTopPodcastObservable = this.http
-      .get<any>(`${this.corsProxy}https://rss.itunes.apple.com/api/v1/${this.countryCode}/podcasts/top-podcasts/all/${limit}/explicit.json`)
+      .get<any>(`${this.apiEndpoint}/podcast/top/charts?countryCode=${this.countryCode}&limit=${limit}`)
       .map((response) => {
         return response.feed.results
           .map(podcast => <ItunesPodcast>{
@@ -83,11 +83,8 @@ export class PodcastService {
     if (this.itunesCategoriesObservable) return this.itunesCategoriesObservable;
 
     this.itunesCategoriesObservable = this.http
-      .get<any>(`https://itunes.apple.com/WebObjects/MZStoreServices.woa/ws/genres?id=26`)
-      .map((response) => {
-        const subGenres = response['26'].subgenres;
-        return Object.keys(subGenres).map(key => <ItunesCategory>subGenres[key]);
-      })
+      .get<any>(`${this.apiEndpoint}/genre`)
+      .map(response => response)
       .publishReplay()
       .refCount()
       .catch(this.handleError)
@@ -105,25 +102,15 @@ export class PodcastService {
 
   searchItunesPodcast(term: string): Observable<ItunesPodcast[]> {
     return this.http
-      .get<any>(`https://itunes.apple.com/search?media=podcast&country=${this.countryCode}&term=${term}&callback=`)
-      .map((response) => {
-        return response.results
-          .map(podcast => <ItunesPodcast>{
-            ...podcast,
-            id: podcast.collectionId,
-            author: podcast.artistName,
-            cover: podcast.artworkUrl600,
-            title: podcast.collectionName,
-            lastUpdate: podcast.releaseDate
-          });
-      })
+      .get<any>(`${this.apiEndpoint}/podcast?countryCode=${this.countryCode}&term=${term}`)
+      .map(response => response)
       .catch(this.handleError);
   }
 
   searchPodcastByCategory(categoryId: string): Promise<ItunesPodcast[]> {
     return this.http
       // tslint:disable-next-line
-      .get<any>(`https://itunes.apple.com/search?media=podcast&country=${this.countryCode}&term=podcast&genreId=${categoryId}&limit=100&callback=`)
+      .get<any>(`${this.apiEndpoint}/genre/${categoryId}?countryCode=${this.countryCode}`)
       .map((response) => {
         return response.results
           .map(podcast => <ItunesPodcast>{
@@ -141,56 +128,16 @@ export class PodcastService {
 
   getFeed(podcast: ItunesPodcast): Promise<ItunesPodcast> {
     return this.http
-      .get(`${this.corsProxy}${podcast.feedUrl}?format=xml`, { responseType: 'text' })
-      .map(async (response) => {
-        const parsedFeed = await new Parser().parseString(response);
-
-        const episodes = parsedFeed.items
-          .map(episode => {
-            try {
-              return {
-                ...episode,
-                author: podcast.author,
-                src: this.toHttpPipe.transform(episode.enclosure.url),
-                type: episode.enclosure.type,
-                cover: episode.itunes.image || podcast.cover,
-                description: episode.contentSnippet || episode.content,
-                size: episode.enclosure.length,
-                releaseDate: episode.pubDate,
-                podcastTitle: podcast.title,
-                duration: episode.itunes.duration,
-                podcastId: podcast.id
-              }
-            } catch (e) {
-              return
-            }
-          })
-          .filter(v => v);
-
-        return {
-          ...podcast,
-          description: parsedFeed.description,
-          episodes
-        };
-      })
+      .get(`${this.apiEndpoint}/podcast/${podcast.id}/feed`)
+      .map(response => response)
       .catch(this.handleError)
       .toPromise();
   }
 
   getPodcastById(id: string): Promise<ItunesPodcast> {
     return this.http
-      .get<any>(`https://itunes.apple.com/lookup?id=${id}&callback=`)
-      .map((response) => {
-        const podcast = response.results[0];
-        return <ItunesPodcast>{
-          ...podcast,
-          id: podcast.collectionId,
-          author: podcast.artistName,
-          cover: podcast.artworkUrl600,
-          title: podcast.collectionName,
-          lastUpdate: podcast.releaseDate
-        };
-      })
+      .get<any>(`${this.apiEndpoint}/podcast/${id}`)
+      .map(response => response)
       .catch(this.handleError)
       .toPromise();
   }

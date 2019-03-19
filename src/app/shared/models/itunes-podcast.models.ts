@@ -1,10 +1,10 @@
 import { ItunesEpisode } from '@shared/models/itunes-episode.model';
 
 export class ItunesPodcast {
-    id: string = '';
-    author: string = '';
-    cover: string = '/assets/img/top-podcast-placeholder.png';
-    title: string = '';
+    id = '';
+    author = '';
+    cover = '/assets/img/top-podcast-placeholder.png';
+    title = '';
     description: string;
     feedUrl: string;
     trackCount: number;
