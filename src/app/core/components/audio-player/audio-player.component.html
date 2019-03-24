@@ -9,7 +9,8 @@
 
     <div class="audio__progress">
       <small class="audio__time">{{ episode.currentTimeString }}</small>
-      <progress class="audio__bar" (click)="seekAudio($event)" value="{{episode.progressbar}}" max="1"></progress>
+      <ng5-slider [(value)]="episode.progressbar" [options]="options" class="audio__bar" (userChange)="seekAudio($event)" (userChangeStart)="isBarBlocked = true" (userChangeEnd)="isBarBlocked = false"></ng5-slider>
+
       <small class="progress__time">{{ episode.durationString }}</small>
     </div>
   </div>

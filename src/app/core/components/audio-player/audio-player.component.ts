@@ -3,6 +3,7 @@ import * as moment from 'moment';
 import { AudioService } from '../../../core/services/audio.service';
 import { PouchdbAudioService } from '../../../core/services/pouchdb-audio.service';
 import { ItunesEpisode } from '@shared/models/itunes-episode.model';
+import {Options} from 'ng5-slider';
 
 @Component({
   selector: 'app-audio-player',
@@ -12,6 +13,14 @@ import { ItunesEpisode } from '@shared/models/itunes-episode.model';
 export class AudioPlayerComponent implements OnInit, OnDestroy {
   episode: ItunesEpisode = new ItunesEpisode();
   audio: HTMLAudioElement = new Audio();
+  options: Options = {
+    floor: 0,
+    ceil: 100,
+    step: 0.01,
+    showSelectionBar: true
+  };
+
+  isBarBlocked: false;
 
   constructor(
     private audioService: AudioService,
@@ -72,10 +81,12 @@ export class AudioPlayerComponent implements OnInit, OnDestroy {
         this.episode.currentTime = this.audio.currentTime;
 
         const progressbarValue = this.audio.currentTime / this.audio.duration;
-        this.episode.progressbar = isNaN(progressbarValue) ? 0 : progressbarValue;
 
-        if (this.episode.progressbar) {
-          await this.pouchdbAudioService.putOne(this.episode.src, this.episode);
+        if (!this.isBarBlocked) {
+          this.episode.progressbar = isNaN(progressbarValue) ? 0 : progressbarValue * 100;
+          if (this.episode.progressbar) {
+            await this.pouchdbAudioService.putOne(this.episode.src, this.episode);
+          }
         }
       } catch (e) {
         console.log('Fail to update track info', e);
@@ -99,8 +110,8 @@ export class AudioPlayerComponent implements OnInit, OnDestroy {
 
 
   seekAudio(event: MouseEvent): void {
-    const percent = event.offsetX / (event.target as HTMLElement).offsetWidth;
-    this.audio.currentTime = percent * this.audio.duration;
+    console.log( this.episode.progressbar / 100, this.episode.progressbar);
+    this.audio.currentTime = (this.episode.progressbar / 100)  * this.audio.duration;
     if (this.audio.paused) this.audio.play();
   }
 

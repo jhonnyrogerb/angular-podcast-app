@@ -18,6 +18,7 @@ import { PodcastService } from '@core/http/podcast.service';
 import { environment } from 'environments/environment';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { NgProgressModule, NgProgressInterceptor } from 'ngx-progressbar';
+import {Ng5SliderModule} from 'ng5-slider';
 
 export const PodcastProvider = (provider: PodcastService) => {
   return () => provider.getLocation();
@@ -37,6 +38,7 @@ export const PodcastProvider = (provider: PodcastService) => {
     NgProgressModule,
     PodcastModule,
     AppRoutingModule,
+    Ng5SliderModule,
     SharedModule.forRoot()
   ],
   providers: [
