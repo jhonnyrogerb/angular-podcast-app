@@ -9,7 +9,7 @@
         "/favicon.ico",
         "/index.html"
       ],
-      "versionedFiles": [
+      "files": [
         "/*.bundle.css",
         "/*.bundle.js",
         "/*.chunk.js",
@@ -31,5 +31,30 @@
         "/assets/**"
       ]
     }
-  }]
+  }],
+  "dataGroups": [
+    {
+      "name": "local-api",
+      "urls": [
+        "http://localhost:3000/**",
+        "https://podcast-app-api-rfpomhjv1.now.sh/**"
+      ],
+      "cacheConfig": {
+        "maxSize": 100,
+        "maxAge": "1d",
+        "strategy": "performance"
+      }
+    },
+    {
+      "name": "ipapi-api",
+      "urls": [
+        "https://ipapi.co/**"
+      ],
+      "cacheConfig": {
+        "maxSize": 100,
+        "maxAge": "1d",
+        "strategy": "performance"
+      }
+    }
+  ]
 }

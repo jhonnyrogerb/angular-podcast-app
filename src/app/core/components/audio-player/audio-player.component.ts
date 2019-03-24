@@ -20,7 +20,7 @@ export class AudioPlayerComponent implements OnInit, OnDestroy {
     showSelectionBar: true
   };
 
-  isBarBlocked: false;
+  isBarBlocked = false;
 
   constructor(
     private audioService: AudioService,
