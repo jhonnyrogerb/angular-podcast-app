@@ -56,7 +56,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
     try {
       this.ngProgress.start();
 
-      this.podcasService.getItunesTopPodcast();
+      this.topPodcasts = await this.podcasService.getItunesTopPodcast();
       this.podcasService.searchPodcastByCategory('1301', 14).then(v => this.topArtsPodcasts = v);
       this.podcasService.searchPodcastByCategory('1303', 14).then(v => this.topComedyPodcasts = v);
       this.podcasService.searchPodcastByCategory('1304', 14).then(v => this.topEducationPodcasts = v);
