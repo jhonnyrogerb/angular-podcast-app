@@ -3,6 +3,7 @@ import { Subject } from 'rxjs/Subject';
 import { ItunesPodcast } from '@shared/models/itunes-podcast.models';
 import { PodcastService } from '@core/http/podcast.service';
 import { NgProgress } from 'ngx-progressbar';
+import {ItunesCategory} from '@shared/models/itunes-category.models';
 
 @Component({
   selector: 'app-search',
@@ -11,12 +12,15 @@ import { NgProgress } from 'ngx-progressbar';
 })
 export class SearchComponent implements OnInit, AfterViewInit {
   searchResult: ItunesPodcast[];
+  categories: ItunesCategory[];
   term$ = new Subject<string>();
 
   @ViewChild('inputSearch') inputEl: ElementRef;
 
-  constructor(private podcastService: PodcastService,
-    private ngProgress: NgProgress) {
+  constructor(
+    private podcastService: PodcastService,
+    private ngProgress: NgProgress
+  ) {
     this.podcastService
       .searchItunesPodcastOnKeyUp(this.term$)
       .subscribe((response) => {
@@ -33,13 +37,13 @@ export class SearchComponent implements OnInit, AfterViewInit {
     this.term$.next(target.value);
   }
 
-
   ngAfterViewInit() {
     window.scrollTo(0, 0);
     this.inputEl.nativeElement.focus();
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+    this.categories = await this.podcastService.getItunesCategories();
   }
 
 }

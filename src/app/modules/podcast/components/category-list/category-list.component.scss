@@ -9,6 +9,10 @@
     margin: 0;
     padding: 0 10px 20px;
     justify-content: center;
+
+    @include media-breakpoint-up(lg) {
+      margin: 100px 120px 0;
+    }
 }
 
 .category{

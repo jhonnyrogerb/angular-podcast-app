@@ -1,5 +1,4 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { ItunesCategory } from '@shared/models/itunes-category.models';
 import { ItunesPodcast } from '@shared/models/itunes-podcast.models';
 import { PodcastService } from '@core/http/podcast.service';
 import { NgProgress } from 'ngx-progressbar';
@@ -11,7 +10,6 @@ import { NgProgress } from 'ngx-progressbar';
 })
 export class HomeComponent implements OnInit, AfterViewInit {
 
-  categories: ItunesCategory[];
   podcasts: ItunesPodcast[];
 
   constructor(
@@ -25,7 +23,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
     try {
       this.ngProgress.start();
 
-      this.categories = await this.podcasService.getItunesCategories();
       this.podcasts = await this.podcasService.getItunesTopPodcast();
     } catch (e) {
       console.log('Fail to load podcasts', e);
