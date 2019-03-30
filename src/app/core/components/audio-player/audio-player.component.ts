@@ -1,14 +1,30 @@
-import { Component, OnInit, HostListener, OnDestroy } from '@angular/core';
+import {Component, OnInit, HostListener, OnDestroy} from '@angular/core';
 import * as moment from 'moment';
-import { AudioService } from '../../../core/services/audio.service';
-import { PouchdbAudioService } from '../../../core/services/pouchdb-audio.service';
-import { ItunesEpisode } from '@shared/models/itunes-episode.model';
+import {AudioService} from '../../../core/services/audio.service';
+import {PouchdbAudioService} from '../../../core/services/pouchdb-audio.service';
+import {ItunesEpisode} from '@shared/models/itunes-episode.model';
 import {Options} from 'ng5-slider';
+import {animate, state, style, transition, trigger} from '@angular/animations';
 
 @Component({
   selector: 'app-audio-player',
   templateUrl: './audio-player.component.html',
-  styleUrls: ['./audio-player.component.scss']
+  styleUrls: ['./audio-player.component.scss'],
+
+  animations: [
+    trigger('toggleMenu', [
+      state('opened', style({
+        height: '100%',
+        opacity: 1
+      })),
+      state('closed', style({
+        height: '80px',
+        opacity: 1
+      })),
+      transition('opened => closed', animate('400ms ease-in-out')),
+      transition('closed => opened', animate('400ms ease-in-out'))
+    ])
+  ]
 })
 export class AudioPlayerComponent implements OnInit, OnDestroy {
   episode: ItunesEpisode = new ItunesEpisode();
@@ -20,12 +36,13 @@ export class AudioPlayerComponent implements OnInit, OnDestroy {
     showSelectionBar: true
   };
 
-  isBarBlocked = false;
+  isChanging = false;
+  open = undefined;
 
   constructor(
     private audioService: AudioService,
     private pouchdbAudioService: PouchdbAudioService
-  ) { }
+  ) {}
 
 
   async ngOnInit() {
@@ -82,7 +99,7 @@ export class AudioPlayerComponent implements OnInit, OnDestroy {
 
         const progressbarValue = this.audio.currentTime / this.audio.duration;
 
-        if (!this.isBarBlocked) {
+        if (!this.isChanging) {
           this.episode.progressbar = isNaN(progressbarValue) ? 0 : progressbarValue * 100;
           if (this.episode.progressbar) {
             await this.pouchdbAudioService.putOne(this.episode.src, this.episode);
@@ -98,8 +115,8 @@ export class AudioPlayerComponent implements OnInit, OnDestroy {
   async getLastAudio(): Promise<ItunesEpisode> {
     try {
       const queryResylt = await this.pouchdbAudioService.query(
-        { lastPlay: { '$gte': null } },
-        { lastPlay: 'desc' }, 1);
+        {lastPlay: {'$gte': null}},
+        {lastPlay: 'desc'}, 1);
 
       return <ItunesEpisode>queryResylt.docs[0];
     } catch (e) {
@@ -109,9 +126,9 @@ export class AudioPlayerComponent implements OnInit, OnDestroy {
   }
 
 
-  seekAudio(event: MouseEvent): void {
-    console.log( this.episode.progressbar / 100, this.episode.progressbar);
-    this.audio.currentTime = (this.episode.progressbar / 100)  * this.audio.duration;
+  seekAudio(): void {
+    this.isChanging = false;
+    this.audio.currentTime = (this.episode.progressbar / 100) * this.audio.duration;
     if (this.audio.paused) this.audio.play();
   }
 

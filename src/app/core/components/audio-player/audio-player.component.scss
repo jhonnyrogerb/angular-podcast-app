@@ -2,12 +2,11 @@
 @import "variables";
 
 $audio-player-color: $gray-darker;
-$zindex-navbar: 1100;
+$zindex-navbar: 2000;
 
 .audio {
   z-index: $zindex-navbar;
   width: 100%;
-  height: 80px;
   position: fixed;
   bottom: 0;
   display: flex;
@@ -46,6 +45,11 @@ $zindex-navbar: 1100;
 
 .audio__info {
   text-align: center;
+
+  @include media-breakpoint-down(xs) {
+    max-width: 250px;
+    overflow: hidden;
+  }
 }
 
 
@@ -57,7 +61,24 @@ $zindex-navbar: 1100;
   }
 
   @include media-breakpoint-down(xs) {
+    max-width: 250px;
     font-size: .9rem;
+    white-space: nowrap;
+    animation-name: animation-name ;
+    animation-duration: 10s;
+    animation-delay: 2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    padding-left: 5px;
+
+    @keyframes animation-name {
+      0% {
+        transform: translateX(10%)
+      }
+      100% {
+        transform: translateX(-80%)
+      }
+    }
   }
 }
 
@@ -132,11 +153,14 @@ $zindex-navbar: 1100;
         transform: scale(1.2);
       }
 
-      &:hover {
-        .ng5-slider-pointer:after {
-          transition: all .3s ease-in-out;
-          transform: scale(3);
-        }
+      .ng5-slider-pointer:after {
+        transition: all .3s ease-in-out;
+      }
+    }
+
+    &.is-changing {
+      .ng5-slider-pointer:after {
+        transform: scale(3);
       }
     }
   }
