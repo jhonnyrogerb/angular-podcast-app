@@ -37,7 +37,7 @@
       "name": "local-api",
       "urls": [
         "http://localhost:3000/**",
-        "https://podcast-app-api-rfpomhjv1.now.sh/**"
+        "https://podcast-app-api-3i3aeq99c.now.sh/**"
       ],
       "cacheConfig": {
         "maxSize": 100,
