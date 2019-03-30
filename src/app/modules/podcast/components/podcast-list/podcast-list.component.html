@@ -1,4 +1,5 @@
-<ul class="podcast__list">
+<h2>{{title}}</h2>
+<ul class="podcast__list" [ngClass]="{'podcast__list--horizontal' : horizontal}">
   <li class="podcast" *ngFor="let podcast of podcasts; trackBy: trackPodcast">
     <a class="podcast__link" [routerLink]="['/podcast', 'feed', podcast.id]">
       <div class="podcast__artwork">

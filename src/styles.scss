@@ -20,11 +20,13 @@ html {
 
 *::-webkit-scrollbar {
 	height: 8px;
-    background-color: #F5F5F5;
+  background-color: #F5F5F5;
+  cursor: pointer;
 }
 
 *::-webkit-scrollbar-thumb {
     background-color: $gray-dark;
+    cursor: pointer;
 }
 
 a, button{

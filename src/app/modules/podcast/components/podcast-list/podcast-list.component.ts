@@ -11,6 +11,8 @@ export class PodcastListComponent implements OnInit {
 
   @Input() podcasts: ItunesPodcast[];
   @Input() topPodcastLoaded = false;
+  @Input() horizontal = false;
+  @Input() title = '';
 
   constructor() {
   }

@@ -38,7 +38,8 @@ export class SubscribesComponent implements OnInit {
         .query({ lastUpdate: { '$gte': null } }, { lastUpdate: 'desc' }, 1000);
 
       const lastEpisodes = podcasts
-        .map(podcast => podcast.episodes[0])
+        .map(podcast => podcast.episodes && podcast.episodes[0])
+        .filter(v => v)
         .sort((a, b) => new Date(b.releaseDate).getDate() - new Date(a.releaseDate).getDate());
 
       return [podcasts, lastEpisodes];

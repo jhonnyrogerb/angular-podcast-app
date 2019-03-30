@@ -107,10 +107,10 @@ export class PodcastService {
       .catch(this.handleError);
   }
 
-  searchPodcastByCategory(categoryId: string): Promise<ItunesPodcast[]> {
+  searchPodcastByCategory(categoryId: string, limit = 100): Promise<ItunesPodcast[]> {
     return this.http
       // tslint:disable-next-line
-      .get<any>(`${this.apiEndpoint}/genre/${categoryId}?countryCode=${this.countryCode}`)
+      .get<any>(`${this.apiEndpoint}/genre/${categoryId}?countryCode=${this.countryCode}&limit=${limit}`)
       .map((response) => {
         return response.results
           .map(podcast => <ItunesPodcast>{
@@ -122,6 +122,8 @@ export class PodcastService {
             lastUpdate: podcast.releaseDate
           });
       })
+      .publishReplay()
+      .refCount()
       .catch(this.handleError)
       .toPromise();
   }

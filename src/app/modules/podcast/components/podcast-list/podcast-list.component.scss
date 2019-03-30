@@ -1,7 +1,20 @@
 @import "~bootstrap/scss/bootstrap-grid.scss";
 @import "variables";
 
-.podcast__list{
+h2 {
+  color: $main-yellow;
+  font-size: 1.3rem;
+  font-weight: bolder;
+  padding: 100px 30px 10px;
+  margin: 0;
+  text-align: center;
+
+  @include media-breakpoint-down(sm) {
+    padding: 10px 30px;
+  }
+}
+
+.podcast__list {
     display: flex;
     flex-direction: row wrap;
     flex-flow: row wrap;
@@ -9,6 +22,21 @@
     align-content: left;
     margin: 0;
     padding: 10px;
+}
+
+.podcast__list--horizontal {
+  @include media-breakpoint-down(sm) {
+    flex-direction: row !important;
+    flex-flow: row !important;
+    overflow-x: auto !important;
+    scroll-behavior: smooth;
+    justify-content: left !important;
+    scrollbar-width: none !important;
+  }
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 .podcast{
