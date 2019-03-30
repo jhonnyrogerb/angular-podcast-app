@@ -10,13 +10,13 @@ h2 {
   text-align: center;
 
   @include media-breakpoint-down(sm) {
-    padding: 10px 30px;
+    padding: 80px 30px 10px;
   }
 }
 
 .podcast__list {
     display: flex;
-    flex-direction: row wrap;
+    flex-direction: row;
     flex-flow: row wrap;
     justify-content: space-around;
     align-content: left;
@@ -57,6 +57,10 @@ h2 {
         flex-basis: calc(33% - 20px);
     }
 
+    @include media-breakpoint-down(sm) {
+        max-width: 150px;
+    }
+
     @include media-breakpoint-down(xs) { 
         flex-basis: calc(50% - 20px);
     }
@@ -95,8 +99,8 @@ h2 {
     }
 
     @media only screen and (max-width: 420px - 1){
-        width: 150px;
-        height: 150px;
+        width: 130px;
+        height: 130px;
     }
 
     @media only screen and (max-width: 360px - 1){
@@ -126,15 +130,28 @@ h2 {
 }
 
 .podcast__title{
-    font-size: 1rem;
+    font-size: .9rem;
     font-weight: bolder;
     padding-bottom: 8px;
+
+  @include media-breakpoint-down(sm) {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 150px;
+    }
 }
 
 .podcast__author{
-    font-size: .8rem;
+    font-size: .7rem;
     color: $gray;
     padding-bottom: 5px;
 
+  @include media-breakpoint-down(sm) {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 150px;
+  }
 }
 
