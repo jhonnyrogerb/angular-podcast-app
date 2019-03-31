@@ -15,6 +15,7 @@ import { NgProgress } from 'ngx-progressbar';
 export class SubscribesComponent implements OnInit {
   podcasts: ItunesPodcast[];
   lastEpisodes: ItunesEpisode[];
+  fallbackNoFavorites = false;
 
   constructor(
     private ngProgress: NgProgress,
@@ -27,6 +28,12 @@ export class SubscribesComponent implements OnInit {
     const [podcasts, lastEpisodes] = await this.getSubscribes();
     this.podcasts = podcasts;
     this.lastEpisodes = lastEpisodes;
+
+    if (!podcasts || !podcasts.length) {
+      this.podcasts = await this.podcastService.getItunesTopPodcast();
+      this.fallbackNoFavorites = true;
+    }
+
     this.updateFeed();
   }
 
@@ -50,12 +57,6 @@ export class SubscribesComponent implements OnInit {
       this.ngProgress.done();
     }
   }
-
-
-  setEpisode(episode) {
-    this.audioService.setAudio(episode);
-  }
-
 
   async updateFeed() {
     try {

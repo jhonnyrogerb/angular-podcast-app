@@ -1,4 +1,6 @@
 <div class="subscribe">
+  <h2 *ngIf="podcasts && podcasts.length">{{!fallbackNoFavorites ? 'Your Favorites': 'You Might Like'}}</h2>
   <app-podcast-list [podcasts]="podcasts" ></app-podcast-list>
+  <h2 *ngIf="lastEpisodes && lastEpisodes.length">Last Episodes</h2>
   <app-episode-list [episodes]="lastEpisodes"></app-episode-list>
 </div>

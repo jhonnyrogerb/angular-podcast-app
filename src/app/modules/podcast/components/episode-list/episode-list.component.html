@@ -1,29 +1,35 @@
-<ul class="episode__list">
-  <li *ngFor="let episode of episodes; trackBy: trackEpisode" class="episode">
-    <a class="episode__link" (click)="setEpisode(episode)">
-      <div class="episode__artwork">
-        <img 
-          class="episode__img" 
-          src="{{episode.cover | toHttps}}" 
-          alt="{{episode.title}} - artwork"
-          (error)="$event.target.src = '/assets/img/top-podcast-placeholder.png'"  
-        />
-      </div>
-      <div class="episode__info">
-        <div class="episode__date">{{ episode.releaseDate | dateFromNow }}</div>
-        <div class="episode__title">{{ episode.title }}</div>
-        <div class="episode__duration">{{ episode.duration }}</div>
-        <div class="episode__size">
-          <a class="episode__play" href="javascript:void(0)" (click)=setEpisode(episode)>
-            <i class="fa fa-play"></i> Play
-          </a>
-          <a class="episode__download" (click)="stopPropagation($event)" href="{{episode.src}}" download>
-            <i class="fa fa-download"></i> Download
-          </a>
-          {{ episode.size | prettySize }}
+<div class="podcast__episodes" *ngIf="episodes">
+  <ul class="episode__list">
+    <li *ngFor="let episode of episodes; trackBy: trackEpisode" class="episode">
+      <a class="episode__link" (click)="setEpisode(episode)">
+        <div class="episode__info">
+          <div class="episode__artwork">
+            <img
+              class="episode__img"
+              src="{{episode.cover | toHttps}}"
+              alt="{{episode.podcastTitle}} - artwork"
+              (error)="$event.target.src = this.fallbackImage; episode.cover = this.fallbackImage"
+            />
+          </div>
+          <div class="episode__metadata">
+            <div class="episode__title">{{ episode.title }}</div>
+            <div class="episode__author"><a [routerLink]="['/podcast', 'feed', episode.podcastId]">{{ episode.podcastTitle }}</a></div>
+          </div>
         </div>
-
-      </div>
-    </a>
-  </li>
-</ul>
+        <div class="episode__description" [ngClass]="{'episode__description--closed': !episode.descriptionOpened}" (click)="openDescription($event, episode)" >
+          {{ episode.description }}
+        </div>
+        <div class="episode__progress">
+          <div class="episode__controls">
+            <a class="episode__play" (click)=setEpisode(episode)>
+              <i class="fa fa-play"></i>
+            </a>
+            <a class="episode__download" (click)="stopPropagation($event)" href="{{episode.src}}" download>
+              <i class="fa fa-download"></i>
+            </a>
+          </div>
+        </div>
+      </a>
+    </li>
+  </ul>
+</div>

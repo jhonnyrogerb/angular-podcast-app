@@ -10,7 +10,7 @@ import { ItunesPodcast } from '@shared/models/itunes-podcast.models';
 export class FeedHeaderComponent implements OnInit {
 
   @Input()
-  podcast: ItunesPodcast[];
+  podcast: ItunesPodcast;
   private colorThief = new ColorThief();
   private imgLoaded = false;
   private coverColor = '#010101';

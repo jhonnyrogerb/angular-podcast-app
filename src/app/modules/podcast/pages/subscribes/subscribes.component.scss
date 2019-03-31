@@ -18,3 +18,12 @@ app-podcast-list /deep/ .podcast {
     background: linear-gradient(#010101, #050505) ;
     min-height: 100vh;
 }
+
+h2 {
+  color: $main-yellow;
+  font-size: 1.2rem;
+  font-weight: bolder;
+  padding: 40px 30px 10px;
+  margin: 0;
+  text-align: center;
+}

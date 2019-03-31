@@ -1,114 +1,152 @@
-
 @import "~bootstrap/scss/bootstrap-grid.scss";
 @import "variables";
 
 .podcast__episodes{
-    z-index: 10;
-    position: relative;
-    width: 100%;
-    max-width: 100%;
-    overflow: hidden;
-}
-
-.episode {
-    display: block;
-    overflow: hidden;
-    flex: 1 0;
-
-    @include media-breakpoint-up(lg) {
-      max-width: 33%;
-      flex-basis: calc(33% - 20px);
-    }
-
-    @include media-breakpoint-down(lg) {
-      max-width: 50%;
-      flex-basis: calc(50% - 20px);
-    }
-
-    @include media-breakpoint-down(sm) {
-        max-width: 100%;
-        flex-basis: calc(100% - 20px);
-    }
+  z-index: 10;
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  width: 100%;
+  overflow: hidden;
 }
 
 .episode__list{
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    position: relative;
-    display: flex;
-    flex-direction: row;
-    flex-flow: row wrap;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-flow: row wrap;
+}
+
+.episode {
+  flex: 1 0;
+
+  @include media-breakpoint-up(lg) {
+    max-width: 33%;
+    flex-basis: calc(33% - 20px);
+  }
+
+  @include media-breakpoint-down(lg) {
+    max-width: 50%;
+    flex-basis: calc(50% - 20px);
+  }
+
+  @include media-breakpoint-down(sm) {
+    max-width: 100%;
+    flex-basis: calc(100% - 20px);
+  }
 }
 
 .episode__link{
-    display: flex;
-    flex-direction: row;
-    justify-content: left;  
-    margin: 40px 20px;
-    position: relative;
+  display: flex;
+  flex-direction: column;
+  flex-flow: column wrap;
+  justify-content: left;
+  margin: 40px 20px;
+
+  @include media-breakpoint-down(sm) {
+    margin: 40px 10px;
+  }
 }
 
 .episode__artwork{
-    flex-basis: 140px;
-    width: 140px;
-    height: 140px;
-    min-width: 140px;
-    margin-right: 20px;
-    border: 2px solid $gray-dark;
-    border-radius: 4px;
+  flex-basis: 130px;
+  width: 130px;
+  height: 130px;
+  min-width: 130px;
+  margin-right: 20px;
+  border: 2px solid $gray-dark;
+  overflow: hidden;
+  border-radius: 4px;
 
-    @include media-breakpoint-down(sm) {
-        flex-basis: 120px;
-        width: 120px;
-        height: 120px;
-        min-width: 120px;
-    }
+  @include media-breakpoint-down(sm) {
+    flex-basis: 100px;
+    width: 100px;
+    height: 100px;
+    min-width: 100px;
+  }
 }
 
 .episode__img{
-    width: 100%;
-    height: 100%;
-    display: block;
+  width: 100%;
+  height: 100%;
+  display: block;
 }
 
 .episode__info{
-    color: $gray-white
+  color: $gray-white;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: row;
+  flex-flow: row;
+  justify-content: left;
 }
 
 .episode__title{
-    font-size: 1.1rem;
-    font-weight: bolder;
+  font-size: 1.1rem;
+  font-weight: bolder;
 }
 
-.episode__size{
-    margin: 10px 0;
+.episode__author{
+  a {
+    color: $gray-white;
+  }
+}
+
+.episode__controls{
+  margin: 5px 0;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-flow: row wrap;
+  justify-content: space-between;
 }
 
 .episode__download{
-    text-decoration: none;
-    color: $gray-light;
-    font-size: 1rem;
-    font-weight: bold;
-    display: inline-block;
-    z-index: 1900;
+  display: block;
+  text-decoration: none;
+  color: $gray-light;
+  font-size: 1rem;
+  font-weight: bold;
+  z-index: 1900;
 }
 
 .episode__link{
-    text-decoration: none;
-    color: $gray-light;
-    cursor: pointer;
+  text-decoration: none;
+  color: $gray-light;
+  cursor: pointer;
 }
 
 .episode__play{
-    text-decoration: none;
-    color: $gray-light;
-    font-size: 1.2rem;
-    font-weight: bold;
-    display: block;
-    margin: 5px 0;
+  display: block;
+  text-decoration: none;
+  color: $gray-light;
+  font-size: 1rem;
+  font-weight: bold;
+}
 
-    @include media-breakpoint-down(sm) {
-        display: none;
-    }
+
+.episode__progress{
+  width: 100%;
+  display: block;
+  margin: 10px 0 0;
+  flex: 0 0 100%;
+}
+
+
+.episode__description {
+  margin-top: 10px;
+  min-height: 55px;
+}
+
+.episode__description--closed {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  /* autoprefixer: ignore next */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  height: 55px;
 }

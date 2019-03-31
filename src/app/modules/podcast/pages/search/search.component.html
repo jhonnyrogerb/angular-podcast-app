@@ -3,7 +3,7 @@
         <input #inputSearch placeholder="Search By Podcast name, author etc..." class="search__input" type="text" (keyup)="keyUp($event)">
     </div>
     <div class="search__result">
-      <app-podcast-list *ngIf="searchResult && searchResult.length" [podcasts]="searchResult" ></app-podcast-list>
+      <app-podcast-list *ngIf="searchResult && searchResult.length" [podcasts]="searchResult" [horizontal]="false"></app-podcast-list>
       <app-category-list [categories]="categories"></app-category-list>
     </div>
 </div>
