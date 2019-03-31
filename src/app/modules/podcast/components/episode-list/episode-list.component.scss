@@ -13,6 +13,22 @@
 .episode {
     display: block;
     overflow: hidden;
+    flex: 1 0;
+
+    @include media-breakpoint-up(lg) {
+      max-width: 33%;
+      flex-basis: calc(33% - 20px);
+    }
+
+    @include media-breakpoint-down(lg) {
+      max-width: 50%;
+      flex-basis: calc(50% - 20px);
+    }
+
+    @include media-breakpoint-down(sm) {
+        max-width: 100%;
+        flex-basis: calc(100% - 20px);
+    }
 }
 
 .episode__list{
@@ -20,6 +36,9 @@
     margin: 0;
     padding: 0;
     position: relative;
+    display: flex;
+    flex-direction: row;
+    flex-flow: row wrap;
 }
 
 .episode__link{
@@ -37,6 +56,7 @@
     min-width: 140px;
     margin-right: 20px;
     border: 2px solid $gray-dark;
+    border-radius: 4px;
 
     @include media-breakpoint-down(sm) {
         flex-basis: 120px;

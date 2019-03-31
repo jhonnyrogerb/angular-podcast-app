@@ -34,9 +34,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
     private ngProgress: NgProgress
   ) {
     this.topPodcasts = new Array(20).fill(new ItunesPodcast());
-    this.topArtsPodcasts = new Array(20).fill(new ItunesPodcast());
-    this.topComedyPodcasts = new Array(20).fill(new ItunesPodcast());
-    this.topEducationPodcasts = new Array(20).fill(new ItunesPodcast());
   }
 
   async ngOnInit() {
@@ -46,6 +43,10 @@ export class HomeComponent implements OnInit, AfterViewInit {
       this.topPodcasts = await this.podcasService.getItunesTopPodcast();
 
       setTimeout(() => {
+        this.topArtsPodcasts = new Array(20).fill(new ItunesPodcast());
+        this.topComedyPodcasts = new Array(20).fill(new ItunesPodcast());
+        this.topEducationPodcasts = new Array(20).fill(new ItunesPodcast());
+
         this.podcasService.searchPodcastByCategory('1301', 14).then(v => this.topArtsPodcasts = v);
         this.podcasService.searchPodcastByCategory('1303', 14).then(v => this.topComedyPodcasts = v);
         this.podcasService.searchPodcastByCategory('1304', 14).then(v => this.topEducationPodcasts = v);
