@@ -68,12 +68,12 @@ h2 {
 
 .podcast__artwork{
     display: block;
-    border-radius: 50%;
+    border-radius: 4px;
     overflow: hidden;
     border: 2px solid $gray-dark;
     margin: 0 auto;
 
-    @include media-breakpoint-only(xl) {
+  @include media-breakpoint-only(xl) {
         width: 220px;
         height: 220px;
     }

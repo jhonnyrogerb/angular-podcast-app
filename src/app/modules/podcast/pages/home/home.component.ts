@@ -37,19 +37,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
     this.topArtsPodcasts = new Array(20).fill(new ItunesPodcast());
     this.topComedyPodcasts = new Array(20).fill(new ItunesPodcast());
     this.topEducationPodcasts = new Array(20).fill(new ItunesPodcast());
-    this.topKidsAndFamilyPodcasts = new Array(20).fill(new ItunesPodcast());
-    this.topHealthPodcasts = new Array(20).fill(new ItunesPodcast());
-    this.topTVPodcasts = new Array(20).fill(new ItunesPodcast());
-    this.topMusicPodcasts = new Array(20).fill(new ItunesPodcast());
-    this.topNewsAndPoliticsPodcasts = new Array(20).fill(new ItunesPodcast());
-    this.topReligionAndSpiritualityPodcasts = new Array(20).fill(new ItunesPodcast());
-    this.topScienceAndMedicinePodcasts = new Array(20).fill(new ItunesPodcast());
-    this.topSportsAndRecreationPodcasts = new Array(20).fill(new ItunesPodcast());
-    this.topTechnologyPodcasts = new Array(20).fill(new ItunesPodcast());
-    this.topBusinessPodcasts = new Array(20).fill(new ItunesPodcast());
-    this.topGamesAndHobbiesPodcasts = new Array(20).fill(new ItunesPodcast());
-    this.topSocietyAndCulturePodcasts = new Array(20).fill(new ItunesPodcast());
-    this.topGovernmentAndOrganizationsPodcasts = new Array(20).fill(new ItunesPodcast());
   }
 
   async ngOnInit() {
