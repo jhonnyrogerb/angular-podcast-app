@@ -24,12 +24,14 @@ import 'rxjs/add/operator/timeout';
 
 import { ToHttpsPipe } from '@shared/pipes/to-https.pipe';
 import { HeaderService } from '@core/services/header.service';
+import {observable} from 'rxjs/internal-compatibility';
 
 
 @Injectable()
 export class PodcastService {
   private itunesTopPodcastObservable: Promise<ItunesPodcast[]>;
   private itunesCategoriesObservable: Promise<ItunesCategory[]>;
+  private itunesHomeCategoriesObservable = new Map<string, Promise<ItunesPodcast[]>>();
 
   private apiEndpoint: string;
   private countryCode = 'US';
@@ -108,7 +110,10 @@ export class PodcastService {
   }
 
   searchPodcastByCategory(categoryId: string, limit = 100): Promise<ItunesPodcast[]> {
-    return this.http
+    const mapKey = `${categoryId}${limit}`;
+    if (this.itunesHomeCategoriesObservable.get(mapKey)) return this.itunesHomeCategoriesObservable.get(mapKey);
+
+    const itunesHomeCategoriesObservable = this.http
       // tslint:disable-next-line
       .get<any>(`${this.apiEndpoint}/genre/${categoryId}?countryCode=${this.countryCode}&limit=${limit}`)
       .map((response) => {
@@ -126,6 +131,10 @@ export class PodcastService {
       .refCount()
       .catch(this.handleError)
       .toPromise();
+
+    this.itunesHomeCategoriesObservable.set(`${categoryId}${limit}`, itunesHomeCategoriesObservable);
+
+    return itunesHomeCategoriesObservable;
   }
 
   getFeed(podcast: ItunesPodcast): Promise<ItunesPodcast> {

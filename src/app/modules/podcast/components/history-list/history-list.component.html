@@ -2,31 +2,34 @@
   <ul class="episode__list">
     <li *ngFor="let episode of episodes; trackBy: trackEpisode" class="episode">
       <a class="episode__link" (click)="setEpisode(episode)">
-        <div class="episode__artwork">
-          <img 
-            class="episode__img" 
-            src="{{episode.cover | toHttps}}" 
-            alt="{{episode.podcastTitle}} - artwork"
-            (error)="$event.target.src = '/assets/img/top-podcast-placeholder.png'"
-          />
-        </div>
         <div class="episode__info">
-          <div class="episode__date">Played {{ episode.lastPlay | dateFromNow }}</div>
-          <div class="episode__title">{{ episode.title }}</div>
-          <div class="episode__author"><a [routerLink]="['/podcast', 'feed', episode.podcastId]">{{ episode.podcastTitle }}</a></div>
-          <div class="episode__progress">
-            <progress class="episode__bar" value="{{episode.progressbar}}" max="1"></progress>
-            <div class="episode__duration">{{ episode.currentTimeString }} / {{ episode.durationString }}</div>
+          <div class="episode__artwork">
+            <img
+              class="episode__img"
+              src="{{episode.cover | toHttps}}"
+              alt="{{episode.podcastTitle}} - artwork"
+              (error)="$event.target.src = '/assets/img/top-podcast-placeholder.png'"
+            />
           </div>
-          <div class="episode__size">
+          <div class="episode__metadata">
+            <div class="episode__date">Played {{ episode.lastPlay | dateFromNow }}</div>
+            <div class="episode__title">{{ episode.title }}</div>
+            <div class="episode__author"><a [routerLink]="['/podcast', 'feed', episode.podcastId]">{{ episode.podcastTitle }}</a></div>
+          </div>
+        </div>
+        <div class="episode__description" [ngClass]="{'episode__description--closed': !episode.descriptionOpened}" (click)="openDescription($event, episode)" >
+          {{ episode.description }}
+        </div>
+        <div class="episode__progress">
+          <div class="episode__controls">
             <a class="episode__play" (click)=setEpisode(episode)>
-              <i class="fa fa-play"></i> Play
+              <i class="fa fa-play"></i>
             </a>
             <a class="episode__download" (click)="stopPropagation($event)" href="{{episode.src}}" download>
-              <i class="fa fa-download"></i> Download
+              <i class="fa fa-download"></i>
             </a>
-            {{ episode.sizeBytes | prettySize }}
           </div>
+          <progress class="episode__bar" value="{{episode.progressbar / 100}}" max="1"></progress>
         </div>
       </a>
     </li>

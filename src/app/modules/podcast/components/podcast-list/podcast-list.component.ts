@@ -10,7 +10,6 @@ import { ItunesPodcast } from '@shared/models/itunes-podcast.models';
 export class PodcastListComponent implements OnInit {
 
   @Input() podcasts: ItunesPodcast[];
-  @Input() topPodcastLoaded = false;
   @Input() horizontal = false;
   @Input() title = '';
 

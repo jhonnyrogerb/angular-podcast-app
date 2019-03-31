@@ -18,13 +18,6 @@
     display: flex;
     flex-direction: row;
     flex-flow: row wrap;
-
-     > :first-child{
-        max-width: 100%;
-        flex-basis: calc(100% - 20px);
-        align-content: center;
-        margin: 0 auto;
-    }
 }
 
 .episode {
@@ -48,7 +41,8 @@
 
 .episode__link{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    flex-flow: column wrap;
     justify-content: left;  
     margin: 40px 20px;
 
@@ -58,20 +52,20 @@
 }
 
 .episode__artwork{
-    flex-basis: 160px;
-    width: 160px;
-    height: 160px;
-    min-width: 160px;
+    flex-basis: 130px;
+    width: 130px;
+    height: 130px;
+    min-width: 130px;
     margin-right: 20px;
     border: 2px solid $gray-dark;
     overflow: hidden;
     border-radius: 4px;
 
     @include media-breakpoint-down(sm) {
-        flex-basis: 130px;
-        width: 130px;
-        height: 130px;
-        min-width: 130px;
+        flex-basis: 100px;
+        width: 100px;
+        height: 100px;
+        min-width: 100px;
     }
 }
 
@@ -84,6 +78,10 @@
 .episode__info{
     color: $gray-white;
     flex-grow: 1;
+    display: flex;
+    flex-direction: row;
+    flex-flow: row;
+    justify-content: left;
 }
 
 .episode__title{
@@ -97,16 +95,21 @@
     }
 }
 
-.episode__size{
-    margin: 10px 0;
+.episode__controls{
+    margin: 5px 0;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-flow: row wrap;
+    justify-content: space-between;
 }
 
 .episode__download{
+    display: block;
     text-decoration: none;
     color: $gray-light;
     font-size: 1rem;
     font-weight: bold;
-    display: inline-block;
     z-index: 1900;
 }
 
@@ -117,31 +120,28 @@
 }
 
 .episode__play{
+    display: block;
     text-decoration: none;
     color: $gray-light;
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: bold;
-    display: block;
-    margin: 5px 0;
-
-    @include media-breakpoint-down(sm) {
-        display: none;
-    }
 }
 
 
 .episode__progress{
     width: 100%;
     display: block;
-    margin: 5px 0;
+    margin: 10px 0 0;
+    flex: 0 0 100%;
 }
 
 
-.episode__bar{
-    height: 8px;
+.episode__bar {
+    height: 1px;
     flex: 1 1;
     border: none;
     appearance: none;
+    width: 100%;
 
     &[value]::-webkit-progress-value,
     &[value]::-webkit-progress-bar-value {
@@ -154,4 +154,19 @@
         background-color: white;
         border: none;
     }
+}
+
+.episode__description {
+    margin-top: 10px;
+    min-height: 55px;
+}
+
+.episode__description--closed {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    /* autoprefixer: ignore next */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 55px;
 }

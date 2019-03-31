@@ -16,4 +16,5 @@ export class ItunesEpisode {
     currentTimeString = '00:00';
     podcastTitle: string;
     podcastId: string;
+    descriptionOpened = false;
 }

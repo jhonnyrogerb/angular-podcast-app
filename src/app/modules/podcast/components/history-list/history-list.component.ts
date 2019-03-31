@@ -27,4 +27,9 @@ export class HistoryListComponent implements OnInit {
     event.stopPropagation();
   }
 
+  openDescription(event: Event, episode: ItunesEpisode) {
+    event.stopPropagation();
+    episode.descriptionOpened = !episode.descriptionOpened;
+  }
+
 }
