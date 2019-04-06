@@ -6,7 +6,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class ToHttpsPipe implements PipeTransform {
 
   transform(value: any, args?: any): any {
-    if (!value) return;
+    if (!value || typeof value !== 'string') return;
 
     if (value.match('^https://')) {
       return value;

@@ -7,8 +7,6 @@
           class="podcast__img" 
           appLazyLoadImage="{{podcast.cover | toHttps}}"
           alt="{{podcast.name}} - artwork"
-          [ngStyle]="{opacity: podcast.loaded}"
-          (load)="podcast.loaded = 1" 
           (error)="$event.target.src = '/assets/img/top-podcast-placeholder.png'"
         />
       </div>

@@ -45,9 +45,6 @@ export class FeedComponent implements OnInit, AfterViewInit {
     });
   }
 
-  ngAfterViewInit() {
-    window.scrollTo(0, 0);
-  }
 
   changeHeader(error?: string) {
     if (error) return this.headerService.headerTitle  = error;
@@ -121,4 +118,7 @@ export class FeedComponent implements OnInit, AfterViewInit {
     event.stopPropagation();
   }
 
+  ngAfterViewInit() {
+    window.scrollTo(0, 0);
+  }
 }

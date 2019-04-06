@@ -15,6 +15,7 @@
             <div class="episode__date">Played {{ episode.lastPlay | dateFromNow }}</div>
             <div class="episode__title">{{ episode.title }}</div>
             <div class="episode__author"><a [routerLink]="['/podcast', 'feed', episode.podcastId]">{{ episode.podcastTitle }}</a></div>
+            <div class="episode__duration">{{ episode.releaseDate | date }} - {{ episode.duration }}</div>
           </div>
         </div>
         <div class="episode__description" [ngClass]="{'episode__description--closed': !episode.descriptionOpened}" (click)="openDescription($event, episode)" >

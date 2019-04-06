@@ -21,13 +21,25 @@ export class LazyLoadImageDirective implements OnInit, OnDestroy, OnChanges{
 
 
   public ngOnInit(): void {
-    this.el.nativeElement['callback']  = () => {this.el.nativeElement.setAttribute('src', this.appLazyLoadImage); };
+    this.el.nativeElement.style.opacity = '0';
+
+    this.el.nativeElement['callback']  = () => {
+      if (this.appLazyLoadImage) {
+        this.el.nativeElement.setAttribute('src', this.appLazyLoadImage);
+        this.el.nativeElement.onload = () => this.el.nativeElement.style.opacity = '1';
+      }
+    };
     this.intersectionObserverService.addElement(this.el.nativeElement);
   }
 
 
   public ngOnChanges(changes: SimpleChanges) {
-      this.el.nativeElement['callback']  = () => {this.el.nativeElement.setAttribute('src', this.appLazyLoadImage); };
+      this.el.nativeElement['callback']  = () => {
+        if (this.appLazyLoadImage) {
+          this.el.nativeElement.setAttribute('src', this.appLazyLoadImage);
+          this.el.nativeElement.onload = () => this.el.nativeElement.style.opacity = '1';
+        }
+      };
       this.intersectionObserverService.addElement(this.el.nativeElement);
   }
 }

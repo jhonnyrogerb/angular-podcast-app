@@ -46,6 +46,7 @@
 
 .podcast__img{
     display: block;
+    transition: opacity .7s ease-in-out;
 
     @include media-breakpoint-up(md) {
         width: 300px;

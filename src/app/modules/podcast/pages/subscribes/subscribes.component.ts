@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import { AudioService } from '@core/services/audio.service';
 import { PouchdbSubscribeService } from '@core/services/pouchdb-subscribe.service';
 import { ItunesPodcast } from '@shared/models/itunes-podcast.models';
@@ -12,7 +12,7 @@ import { NgProgress } from 'ngx-progressbar';
   templateUrl: './subscribes.component.html',
   styleUrls: ['./subscribes.component.scss']
 })
-export class SubscribesComponent implements OnInit {
+export class SubscribesComponent implements OnInit, AfterViewInit {
   podcasts: ItunesPodcast[];
   lastEpisodes: ItunesEpisode[];
   fallbackNoFavorites = false;
@@ -79,5 +79,7 @@ export class SubscribesComponent implements OnInit {
     }
   }
 
-
+  ngAfterViewInit() {
+    window.scrollTo(0, 0);
+  }
 }
