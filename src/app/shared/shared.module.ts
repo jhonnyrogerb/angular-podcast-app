@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { PrettySizePipe } from '@shared/pipes/pretty-size.pipe';
 import { DateFromNowPipe } from '@shared/pipes/date-from-now.pipe';
 import { ToHttpsPipe } from './pipes/to-https.pipe';
+import {LazyLoadImageDirective} from '@shared/directives/lazy-load-image.directive';
 
 @NgModule({
   imports: [
@@ -11,17 +12,20 @@ import { ToHttpsPipe } from './pipes/to-https.pipe';
   declarations: [
     PrettySizePipe,
     DateFromNowPipe,
-    ToHttpsPipe
+    ToHttpsPipe,
+    LazyLoadImageDirective
   ],
   providers: [
     PrettySizePipe,
     DateFromNowPipe,
-    ToHttpsPipe
+    ToHttpsPipe,
+    LazyLoadImageDirective
   ],
   exports: [
     PrettySizePipe,
     DateFromNowPipe,
-    ToHttpsPipe
+    ToHttpsPipe,
+    LazyLoadImageDirective
   ]
 })
 export class SharedModule {

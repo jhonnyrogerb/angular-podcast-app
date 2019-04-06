@@ -6,7 +6,7 @@
           <div class="episode__artwork">
             <img
               class="episode__img"
-              src="{{episode.cover | toHttps}}"
+              appLazyLoadImage="{{episode.cover | toHttps}}"
               alt="{{episode.podcastTitle}} - artwork"
               (error)="$event.target.src = '/assets/img/top-podcast-placeholder.png'"
             />

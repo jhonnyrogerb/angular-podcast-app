@@ -151,10 +151,13 @@ $zindex-navbar: 2000;
       .ng5-slider-pointer:after {
         background-color: $main-yellow !important;
         transform: scale(1.2);
+        transition: all .3s ease-in-out;
+        left: auto;
       }
 
-      .ng5-slider-pointer:after {
-        transition: all .3s ease-in-out;
+      .ng5-slider-pointer {
+        width: 1px;
+        left: auto;
       }
     }
 

@@ -10,6 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AudioService } from './core/services/audio.service';
 import { PouchdbAudioService } from './core/services/pouchdb-audio.service';
 import { PouchdbSubscribeService } from './core/services/pouchdb-subscribe.service';
+import { IntersectionObserverService } from './core/services/intersection-observer.service';
 import { HeaderComponent } from './core/components/header/header.component';
 import { AudioPlayerComponent } from './core/components/audio-player/audio-player.component';
 import { HeaderService } from '@core/services/header.service';
@@ -19,6 +20,7 @@ import { environment } from 'environments/environment';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { NgProgressModule, NgProgressInterceptor } from 'ngx-progressbar';
 import {Ng5SliderModule} from 'ng5-slider';
+import { LazyLoadImageDirective } from './shared/directives/lazy-load-image.directive';
 
 export const PodcastProvider = (provider: PodcastService) => {
   return () => provider.getLocation();
@@ -46,6 +48,7 @@ export const PodcastProvider = (provider: PodcastService) => {
     PouchdbAudioService,
     PouchdbSubscribeService,
     AudioService,
+    IntersectionObserverService,
     { provide: APP_INITIALIZER, useFactory: PodcastProvider, deps: [PodcastService], multi: true }],
   bootstrap: [AppComponent]
 })

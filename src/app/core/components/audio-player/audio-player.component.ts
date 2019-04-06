@@ -4,27 +4,11 @@ import {AudioService} from '../../../core/services/audio.service';
 import {PouchdbAudioService} from '../../../core/services/pouchdb-audio.service';
 import {ItunesEpisode} from '@shared/models/itunes-episode.model';
 import {Options} from 'ng5-slider';
-import {animate, state, style, transition, trigger} from '@angular/animations';
 
 @Component({
   selector: 'app-audio-player',
   templateUrl: './audio-player.component.html',
   styleUrls: ['./audio-player.component.scss'],
-
-  animations: [
-    trigger('toggleMenu', [
-      state('opened', style({
-        height: '100%',
-        opacity: 1
-      })),
-      state('closed', style({
-        height: '80px',
-        opacity: 1
-      })),
-      transition('opened => closed', animate('400ms ease-in-out')),
-      transition('closed => opened', animate('400ms ease-in-out'))
-    ])
-  ]
 })
 export class AudioPlayerComponent implements OnInit, OnDestroy {
   episode: ItunesEpisode = new ItunesEpisode();
@@ -37,7 +21,6 @@ export class AudioPlayerComponent implements OnInit, OnDestroy {
   };
 
   isChanging = false;
-  open = undefined;
 
   constructor(
     private audioService: AudioService,
@@ -100,7 +83,7 @@ export class AudioPlayerComponent implements OnInit, OnDestroy {
         const progressbarValue = this.audio.currentTime / this.audio.duration;
 
         if (!this.isChanging) {
-          this.episode.progressbar = isNaN(progressbarValue) ? 0 : progressbarValue * 100;
+          this.episode.progressbar = isNaN(progressbarValue) ? 0.0 : progressbarValue * 100;
           if (this.episode.progressbar) {
             await this.pouchdbAudioService.putOne(this.episode.src, this.episode);
           }
@@ -150,4 +133,38 @@ export class AudioPlayerComponent implements OnInit, OnDestroy {
 
     return timeString;
   }
+
+
+
+  /*var intersection = window.IntersectionObserver;
+  if (intersection) {
+    var observer = new IntersectionObserver(function(entries, self) {
+      entries.forEach(function (entry) {
+        if(entry.isIntersecting) {
+          var img = entry.target;
+          img.setAttribute("src", img.getAttribute("data-src"));
+          self.unobserve(entry.target);
+        }
+      })
+    }, {rootMargin: '0px 0px 50px 0px', threshold: 0});
+
+  }
+
+  function imgsToObserver() {
+    var imgs = document.querySelectorAll('[data-src]');
+    if (intersection) {
+      imgs.forEach(function(img) {
+        observer.observe(img);
+      });
+    } else {
+      //compatibilidade com outros navegadores
+      console.log("IntersectionObserver não é compatível");
+      for (var i = 0; i < imgs.length; i++) {
+        var img = imgs[i];
+        img.setAttribute("src", img.getAttribute("data-src"));
+      }
+    }
+  }
+
+  imgsToObserver();*/
 }

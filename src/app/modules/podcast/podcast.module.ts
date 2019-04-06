@@ -38,7 +38,7 @@ import { SharedModule } from '@shared/shared.module';
     SubscribesComponent,
     EpisodeListComponent,
     FeedHeaderComponent,
-    HistoryListComponent
+    HistoryListComponent,
   ],
   exports: [
     PodcastComponent
