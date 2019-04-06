@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import PouchDB from 'pouchdb';
 import PouchDBFind from 'pouchdb-find';
+import PouchDBFindAdapterWebSQl from 'pouchdb-adapter-websql';
 
-PouchDB.plugin(PouchDBFind);
+PouchDB.plugin(PouchDBFind, PouchDBFindAdapterWebSQl);
 
 
 @Injectable()
@@ -11,7 +12,7 @@ export class PouchdbSubscribeService {
 
 
   constructor() {
-    if (!this.db) this.db = new PouchDB('angular-podcast-subscribes');
+    if (!this.db) this.db = new PouchDB('angular-podcast-subscribes', {adapter: 'websql'});
     this.createIndexes();
   }
 

@@ -54,6 +54,7 @@
     "normalize-scss": "^7.0.1",
     "normalize.css": "^8.0.0",
     "pouchdb": "^6.4.3",
+    "pouchdb-adapter-websql": "^7.0.0",
     "pouchdb-find": "^6.4.3",
     "prettysize": "^1.1.0",
     "random-gradient": "0.0.2",

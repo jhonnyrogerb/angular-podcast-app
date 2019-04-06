@@ -44,23 +44,24 @@ export class HomeComponent implements OnInit, AfterViewInit {
       this.ngProgress.start();
 
       this.topPodcasts = await this.podcasService.getItunesTopPodcast();
-
-      this.podcasService.searchPodcastByCategory('1301', 14).then(v => this.topArtsPodcasts = v);
-      this.podcasService.searchPodcastByCategory('1303', 14).then(v => this.topComedyPodcasts = v);
-      this.podcasService.searchPodcastByCategory('1304', 14).then(v => this.topEducationPodcasts = v);
-      this.podcasService.searchPodcastByCategory('1305', 14).then(v => this.topKidsAndFamilyPodcasts = v);
-      this.podcasService.searchPodcastByCategory('1307', 14).then(v => this.topHealthPodcasts = v);
-      this.podcasService.searchPodcastByCategory('1309', 14).then(v => this.topTVPodcasts = v);
-      this.podcasService.searchPodcastByCategory('1310', 14).then(v => this.topMusicPodcasts = v);
-      this.podcasService.searchPodcastByCategory('1311', 14).then(v => this.topNewsAndPoliticsPodcasts = v);
-      this.podcasService.searchPodcastByCategory('1314', 14).then(v => this.topReligionAndSpiritualityPodcasts = v);
-      this.podcasService.searchPodcastByCategory('1315', 14).then(v => this.topScienceAndMedicinePodcasts = v);
-      this.podcasService.searchPodcastByCategory('1316', 14).then(v => this.topSportsAndRecreationPodcasts = v);
-      this.podcasService.searchPodcastByCategory('1318', 14).then(v => this.topTechnologyPodcasts = v);
-      this.podcasService.searchPodcastByCategory('1321', 14).then(v => this.topBusinessPodcasts = v);
-      this.podcasService.searchPodcastByCategory('1323', 14).then(v => this.topGamesAndHobbiesPodcasts = v);
-      this.podcasService.searchPodcastByCategory('1324', 14).then(v => this.topSocietyAndCulturePodcasts = v);
-      this.podcasService.searchPodcastByCategory('1325', 14).then(v => this.topGovernmentAndOrganizationsPodcasts = v);
+      setTimeout(() => {
+        this.podcasService.searchPodcastByCategory('1301', 14).then(v => this.topArtsPodcasts = v);
+        this.podcasService.searchPodcastByCategory('1303', 14).then(v => this.topComedyPodcasts = v);
+        this.podcasService.searchPodcastByCategory('1304', 14).then(v => this.topEducationPodcasts = v);
+        this.podcasService.searchPodcastByCategory('1305', 14).then(v => this.topKidsAndFamilyPodcasts = v);
+        this.podcasService.searchPodcastByCategory('1307', 14).then(v => this.topHealthPodcasts = v);
+        this.podcasService.searchPodcastByCategory('1309', 14).then(v => this.topTVPodcasts = v);
+        this.podcasService.searchPodcastByCategory('1310', 14).then(v => this.topMusicPodcasts = v);
+        this.podcasService.searchPodcastByCategory('1311', 14).then(v => this.topNewsAndPoliticsPodcasts = v);
+        this.podcasService.searchPodcastByCategory('1314', 14).then(v => this.topReligionAndSpiritualityPodcasts = v);
+        this.podcasService.searchPodcastByCategory('1315', 14).then(v => this.topScienceAndMedicinePodcasts = v);
+        this.podcasService.searchPodcastByCategory('1316', 14).then(v => this.topSportsAndRecreationPodcasts = v);
+        this.podcasService.searchPodcastByCategory('1318', 14).then(v => this.topTechnologyPodcasts = v);
+        this.podcasService.searchPodcastByCategory('1321', 14).then(v => this.topBusinessPodcasts = v);
+        this.podcasService.searchPodcastByCategory('1323', 14).then(v => this.topGamesAndHobbiesPodcasts = v);
+        this.podcasService.searchPodcastByCategory('1324', 14).then(v => this.topSocietyAndCulturePodcasts = v);
+        this.podcasService.searchPodcastByCategory('1325', 14).then(v => this.topGovernmentAndOrganizationsPodcasts = v);
+      }, 200);
     } catch (e) {
       console.log('Fail to load podcasts', e);
     } finally {
