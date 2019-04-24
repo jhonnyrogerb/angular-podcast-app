@@ -4,12 +4,7 @@ A podcast app made with Angular 5, Pouchdb, Html5 Web Audio API and PWA Features
 
 This App uses the iTunes Search API as the source.
 
-This App does not use any server-side code, all data is stored in the browser with pouchdb.
-
-To avoid CORS errors, some requests are executed through a PUBLIC CORS PROXY: CORS-ANYWHERE, but be warned that this implementation has some limitations. In the future, a Node.js server will be implemented to serve as PROXY between the application and the iTunes Search API.
-
-You can change the PUBLIC CORS PROXY URL in the environment.ts files.
-` {  corsProxy: 'https://cors-anywhere.herokuapp.com/' }`
+You can find the server side-code here: https://github.com/jhonnyrogerb/angular-podcast-server
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.5.5.
 
