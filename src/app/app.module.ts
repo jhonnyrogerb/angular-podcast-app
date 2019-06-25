@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { APP_BASE_HREF } from '@angular/common';
 
 import { AppComponent } from './app.component';
 import { PodcastModule } from './modules/podcast/podcast.module';
@@ -49,7 +50,8 @@ export const PodcastProvider = (provider: PodcastService) => {
     PouchdbSubscribeService,
     AudioService,
     IntersectionObserverService,
-    { provide: APP_INITIALIZER, useFactory: PodcastProvider, deps: [PodcastService], multi: true }],
+    { provide: APP_INITIALIZER, useFactory: PodcastProvider, deps: [PodcastService], multi: true },
+    { provide: APP_BASE_HREF, useValue: '/' + (window.location.pathname.split('/')[1] || '')}]
   bootstrap: [AppComponent]
 })
 export class AppModule { }
