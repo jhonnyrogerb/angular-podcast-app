@@ -36,6 +36,7 @@
           "configurations": {
             "production": {
               "optimization": true,
+              "baseHref": "/app/",
               "outputHashing": "all",
               "sourceMap": false,
               "extractCss": true,
