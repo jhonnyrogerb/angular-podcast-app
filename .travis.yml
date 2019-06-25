@@ -9,7 +9,7 @@ before_script:
 script:
 - ng build --prod --aot
 after_success:
-- rsync -e 'ssh -o StrictHostKeyChecking=no -i /tmp/deploy_rsa' -ravzup public/* $FTP_USER@$FPT_HOST:~/app/
+- rsync -e 'ssh -o StrictHostKeyChecking=no -i /tmp/deploy_rsa' -ravzup dist/* $FTP_USER@$FPT_HOST:~/app/
 before_install:
 - openssl aes-256-cbc -K $encrypted_aa95179e8820_key -iv $encrypted_aa95179e8820_iv
   -in deploy_rsa.enc -out /tmp/deploy_rsa -d
