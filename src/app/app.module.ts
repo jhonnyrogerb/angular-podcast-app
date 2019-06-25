@@ -51,7 +51,7 @@ export const PodcastProvider = (provider: PodcastService) => {
     AudioService,
     IntersectionObserverService,
     { provide: APP_INITIALIZER, useFactory: PodcastProvider, deps: [PodcastService], multi: true },
-    { provide: APP_BASE_HREF, useValue: '/' + (window.location.pathname.split('/')[1] || '')}]
+    { provide: APP_BASE_HREF, useValue: '/' + (window.location.pathname.split('/')[1] || '')}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
