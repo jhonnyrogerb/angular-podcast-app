@@ -13,8 +13,6 @@ after_success:
 before_install:
 - openssl aes-256-cbc -K $encrypted_aa95179e8820_key -iv $encrypted_aa95179e8820_iv
   -in deploy_rsa.enc -out deploy_rsa -d
-- openssl aes-256-cbc -K $encrypted_43c5ea8c55b5_key -iv $encrypted_43c5ea8c55b5_iv
-  -in deploy_rsa.enc -out deploy_rsa -d
 - eval "$(ssh-agent -s)"
 - chmod 600 /tmp/deploy_rsa
 - ssh-add /tmp/deploy_rsa
