@@ -2,12 +2,17 @@ language: node_js
 node_js:
 - 8.11.1
 branches:
-   only:
-      - master
+  only:
+  - master
 before_script:
-   - npm install -g firebase-tools
-   - npm install -g @angular/cli
+- npm install -g @angular/cli
 script:
 - ng build --prod --aot
 after_success:
-   - firebase deploy --token $FIREBASE_TOKEN
+- rsync -e 'ssh -o StrictHostKeyChecking=no -i /tmp/deploy_rsa' -ravzup public/* $FTP_USER@$FPT_HOST:~/app/
+before_install:
+- openssl aes-256-cbc -K $encrypted_43c5ea8c55b5_key -iv $encrypted_43c5ea8c55b5_iv
+  -in deploy_rsa.enc -out deploy_rsa -d
+- eval "$(ssh-agent -s)"
+- chmod 600 /tmp/deploy_rsa
+- ssh-add /tmp/deploy_rsa
