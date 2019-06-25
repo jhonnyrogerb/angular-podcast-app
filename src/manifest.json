@@ -6,7 +6,7 @@
   "description": "A podcast app made with Angular 5, Pouchdb, Html5 Web Audio API and PWA Features.",
   "display": "standalone",
   "Scope": "/",
-  "start_url": "/",
+  "start_url": "/app",
   "icons": [
     {
       "src": "assets/icons/icon-72x72.png",

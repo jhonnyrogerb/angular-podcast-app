@@ -33,7 +33,7 @@ export const PodcastProvider = (provider: PodcastService) => {
     HeaderComponent,
   ],
   imports: [
-    ServiceWorkerModule.register('/ngsw-worker.js',  { enabled: environment.production }),
+    ServiceWorkerModule.register('/app/ngsw-worker.js',  { enabled: environment.production }),
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
