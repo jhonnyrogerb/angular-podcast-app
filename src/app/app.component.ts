@@ -13,7 +13,6 @@ export class AppComponent {
      if (event instanceof NavigationEnd) {
        window['ga']('set', 'page', event.urlAfterRedirects);
        window['ga']('send', 'pageview');
-       window['ga']('send', 'pageview', location.pathname);
      }
    });
  }
