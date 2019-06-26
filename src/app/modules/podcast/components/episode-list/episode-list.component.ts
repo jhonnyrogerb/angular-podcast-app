@@ -14,7 +14,7 @@ export class EpisodeListComponent implements OnInit {
   @Input() episodes: ItunesEpisode[];
   @Input() podcast: ItunesPodcast;
 
-  fallbackImage = '/assets/img/top-podcast-placeholder.png';
+  fallbackImage = 'assets/img/top-podcast-placeholder.png';
 
   constructor(
           private audioService: AudioService,

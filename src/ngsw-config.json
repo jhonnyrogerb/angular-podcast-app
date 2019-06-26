@@ -28,7 +28,8 @@
       "files": [
         "/assets/img/pause-button.png",
         "/assets/img/play-button.png",
-        "/assets/**"
+        "/assets/**",
+        "assets/**"
       ]
     }
   }],
@@ -37,7 +38,8 @@
       "name": "local-api",
       "urls": [
         "http://localhost:3000/**",
-        "https://podcast-app-api-3i3aeq99c.now.sh/**"
+        "https://podcast-app-api-3i3aeq99c.now.sh/**",
+        "https://podcast.jhonnyroger.com/api/**"
       ],
       "cacheConfig": {
         "maxSize": 100,

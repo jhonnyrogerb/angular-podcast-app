@@ -18,7 +18,7 @@ $zindex-navbar: 2000;
 
 
 .audio__btn {
-  background-image: url('/assets/img/play-button.png');
+  background-image: url('assets/img/play-button.png');
   background-size: cover;
   width: 60px;
   height: 60px;
@@ -28,7 +28,7 @@ $zindex-navbar: 2000;
   cursor: pointer;
 
   &.pause {
-    background-image: url('/assets/img/pause-button.png');
+    background-image: url('assets/img/pause-button.png');
   }
 }
 
